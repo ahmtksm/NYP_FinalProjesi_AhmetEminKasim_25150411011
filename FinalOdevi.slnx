@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="AF.Business/AF.Business.csproj" Id="22bdf312-7944-4165-a097-fddb51159bff" />
+  <Project Path="AF.Core/AF.Core.csproj" Id="9d9fe4b5-8a48-4f85-b336-5b3a6ffcf2c9" />
+  <Project Path="AF.DataAccess/AF.DataAccess.csproj" Id="c5a53162-8c24-411c-9372-f998cae8fbf0" />
+  <Project Path="AF.Entities/AF.Entities.csproj" Id="3886ed75-3803-443f-b0cb-8336d4c20c2a" />
+  <Project Path="AF.UI/AF.UI.csproj" Id="a9db4fbc-c8aa-4518-abc9-45e5fad93d65" />
+</Solution>
