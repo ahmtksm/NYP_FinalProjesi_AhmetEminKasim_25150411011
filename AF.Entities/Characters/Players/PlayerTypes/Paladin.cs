@@ -8,14 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Entities.Characters.CharacterTypes
+namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Holy warrior with defensive and healing abilities
+    /// Holy warrior with defensive and healing abilities [EN]
+    /// Kutsal savaşçı, savunma ve iyileştirme yetenekleriyle bilinir [TR]
     /// </summary>
-    public class Paladin : Character
+    public class Paladin : Player
     {
-        public Paladin(string name) : base("Paladin", 150, new Stats(20, 20, 10, 5, 8, 60)) // Creates a new paladin character
+        public Paladin(string name) : base("Paladin", 150, new Stats(20, 20, 10, 5, 8, 60))
         {
             Skills.Add(new Heal());
             Skills.Add(new Shield());

@@ -8,14 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Entities.Characters.CharacterTypes
+namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Dark magic user focused on life steal and poison
+    /// Dark magic user focused on life steal and poison [EN]
+    /// Karanlık büyücü, yaşam çalımı ve zehir üzerine odaklanır [TR]
     /// </summary>
-    public class Necromancer : Character
+    public class Necromancer : Player
     {
-        public Necromancer(string name) : base("Necromancer", 100, new Stats(18, 8, 10, 10, 12, 90)) // Creates a new necromancer character
+        public Necromancer(string name) : base("Necromancer", 100, new Stats(18, 8, 10, 10, 12, 90))
         {
             Skills.Add(new LifeDrain());
             Skills.Add(new Poison());

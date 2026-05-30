@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Core.Enums
+namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all playable character
+    /// Defines all playable characters [EN]
+    /// Tüm oynanabilir karakterleri tanımlar [TR]
     /// </summary>
-    public enum CharacterType
+    public enum PlayerType
     {
         Knight = 0,
         Mage = 1,

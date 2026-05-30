@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Core.Enums
+namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all item categories
+    /// Defines all item categories [EN]
+    /// Tüm eşya kategorilerini tanımlar [TR]
     /// </summary>
     public enum ItemType
     {

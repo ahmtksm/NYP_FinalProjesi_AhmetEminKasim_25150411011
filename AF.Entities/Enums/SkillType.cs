@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Core.Enums
+namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all skill categories
+    /// Defines all skill categories [EN]
+    /// Tüm beceri kategorilerini tanımlar [TR]
     /// </summary>
     public enum SkillType
     {

@@ -1,5 +1,5 @@
-﻿using AF.Core.Enums;
-using AF.Entities.Characters;
+﻿using AF.Entities.Characters;
+using AF.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 namespace AF.Entities.Items.ItemTypes.Damage
 {
     /// <summary>
-    /// Explosive item that damages enemies
+    /// Explosive item that damages enemies [EN]
+    /// Düşmanlara zarar veren patlayıcı eşya [TR]
     /// </summary>
     public class Bomb : Item
     {
-        public int Damage { get; private set; } // Damage dealt to enemies
-        public Bomb() : base("Bomb", "A powerful explosive", ItemType.Damage) // Creates a new Bomb item with a name, description, and type
+        public int Damage { get; private set; } // Damage dealt to enemies [EN] / Düşmanlara verilen hasar [TR]
+        public Bomb() : base("Bomb", "A powerful explosive", ItemType.Damage)
         {
             Damage = 30;
         }

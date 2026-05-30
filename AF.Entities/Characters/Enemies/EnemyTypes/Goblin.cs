@@ -1,5 +1,4 @@
 ﻿using AF.Entities.Items.ItemTypes.Damage;
-using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Skills.SkillTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Debuff;
 using System;
@@ -8,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Entities.Characters.CharacterTypes
+namespace AF.Entities.Characters.Enemies.EnemyTypes
 {
     /// <summary>
-    /// Agile ranged fighter with balanced combat abilities
+    /// Small, green, and sneaky creature [EN]
+    /// küçük, yeşil, sinsi yaratık [TR]
     /// </summary>
-    public class Ranger : Character
+    public class Goblin : Enemy
     {
-        public Ranger(string name) : base("Ranger", 110, new Stats(22, 10, 20, 20, 18, 50)) // Creates a new ranger character
+        public Goblin(string name) : base("Goblin", 60, new Stats(10, 5, 5, 10, 10, 0))
         {
             Skills.Add(new Backstab());
-            Skills.Add(new Burn());
+            Skills.Add(new Poison());
 
             Inventory.Add(new Bomb());
-            Inventory.Add(new GreenHerb());
         }
     }
 }

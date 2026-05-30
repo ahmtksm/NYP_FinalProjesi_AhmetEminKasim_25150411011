@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System;
 using System.Threading.Tasks;
 
-namespace AF.Core.Enums
+namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all possible action types during combat
+    /// Defines all possible action types during combat [EN]
+    /// Savaş sırasında mümkün olan tüm eylem türlerini tanımlar [TR]
     /// </summary>
     public enum ActionType
     {
