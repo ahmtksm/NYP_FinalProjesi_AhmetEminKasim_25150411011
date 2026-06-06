@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Healing;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Items.ItemTypes.Mana;
 using AF.Entities.Skills.SkillTypes.Debuff;
 using AF.Entities.Skills.SkillTypes.Heal;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Necromancer : Player
     {
-        public Necromancer(string name) : base("Necromancer", 100, new Stats(18, 8, 10, 10, 12, 90))
+        public Necromancer(string name) : base("Necromancer", 100, new Stats(18, 8, 10, 10, 12, 90), PlayerType.Necromancer)
         {
             Skills.Add(new LifeDrain());
             Skills.Add(new Poison());

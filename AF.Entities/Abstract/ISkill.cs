@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Entities.Interfaces
+namespace AF.Entities.Abstract
 {
     /// <summary>
     /// Represents skill behavior [EN]
@@ -20,5 +20,6 @@ namespace AF.Entities.Interfaces
         int RemainingCooldown { get; set; } // Remaining cooldown time in turns [EN] / Kalan bekleme süresi (tur cinsinden) [TR]
         int ManaCost { get; } // Mana cost to use the skill [EN] / Beceri kullanmak için gereken mana miktarı [TR]
         SkillType SkillType { get; } // Skill Category (Damage, Healing, Buff, Debuff, etc.) [EN] / Beceri kategorisi (Hasar, İyileştirme, Güçlendirme, Zayıflatma, vb.) [TR]
+        SkillName SkillName { get; } // Enum value for the skill name [EN] / Beceri adı için enum değeri [TR]
     }
 }

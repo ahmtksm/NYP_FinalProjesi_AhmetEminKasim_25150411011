@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Damage;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Damage;
 using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Skills.SkillTypes.Buff;
 using AF.Entities.Skills.SkillTypes.Damage;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Berserker : Player
     {
-        public Berserker(string name) : base("Berserker", 140, new Stats(35, 10, 15, 5, 10, 30))
+        public Berserker(string name) : base("Berserker", 140, new Stats(35, 10, 15, 5, 10, 30), PlayerType.Berserker)
         {
             Skills.Add(new Rage());
             Skills.Add(new BloodSlash());

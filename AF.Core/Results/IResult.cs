@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace AF.Core.Results
 {
     /// <summary>
-    /// Represents a basic operation result with a success status and a message [EN]
-    /// Bir temel işlemin sonucunu, başarı durumu ve mesajıyla temsil eder [TR]
+    /// Bir temel işlemin sonucunu, başarı durumu ve mesajıyla temsil eder
     /// </summary>
     public interface IResult
     {
         bool Success { get; }
         string Message { get; }
+        public ResultType ResultType { get; }
     }
 }

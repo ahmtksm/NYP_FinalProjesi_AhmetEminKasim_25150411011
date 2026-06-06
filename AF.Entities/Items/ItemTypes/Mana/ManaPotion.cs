@@ -15,7 +15,7 @@ namespace AF.Entities.Items.ItemTypes.Mana
     public class ManaPotion : Item
     {
         public int ManaRestored { get; private set; } // The amount of mana restored by the potion [EN] / İksirin restore ettiği mana miktarı [TR]
-        public ManaPotion() : base("Mana Potion", "A potion that restores mana", ItemType.Mana)
+        public ManaPotion() : base("Mana Potion", "A potion that restores mana", ItemType.Mana, ItemName.ManaPotion)
         {
             ManaRestored = 25;
         }

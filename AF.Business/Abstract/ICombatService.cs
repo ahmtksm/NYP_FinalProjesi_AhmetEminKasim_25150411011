@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Business.Interfaces
+namespace AF.Business.Abstract
 {
     /// <summary>
-    /// Service interface responsible for handling combat mechanics such as attacking, defending, and calculating damage [EN]
-    /// Saldırı, savunma ve hasar hesaplama gibi dövüş mekaniklerini yöneten servis'in arayüzü [TR]
+    /// Saldırı, savunma ve hasar hesaplama gibi dövüş mekaniklerini yöneten servis'in arayüzü
     /// </summary>
     public interface ICombatService
     {

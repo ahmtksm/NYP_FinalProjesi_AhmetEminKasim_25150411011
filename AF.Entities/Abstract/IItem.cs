@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Entities.Interfaces
+namespace AF.Entities.Abstract
 {
     /// <summary>
     /// Represents an item behavior [EN]
@@ -17,5 +17,6 @@ namespace AF.Entities.Interfaces
         string Name { get; } // Name of the item [EN] / Eşyanın adı [TR]
         string Description { get; } // Description of the item [EN] / Eşyanın açıklaması [TR]
         ItemType ItemType { get; } // Item Category (Damage, Healing, etc.) [EN] / Eşya kategorisi (Hasar, İyileştirme, vb.) [TR]
+        ItemName ItemName { get; } // Specific item name (e.g., Sword, Potion) [EN] / Belirli eşya adı (örneğin, Kılıç, İksir) [TR]
     }
 }

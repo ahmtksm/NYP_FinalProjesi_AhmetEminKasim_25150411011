@@ -1,6 +1,6 @@
 ﻿using AF.Core.Results;
 using AF.Entities.Enums;
-using AF.Entities.Interfaces;
+using AF.Entities.Abstract;
 using AF.Entities.Items.ItemTypes.Damage;
 using AF.Entities.Items.ItemTypes.Defense;
 using AF.Entities.Items.ItemTypes.Healing;
@@ -21,22 +21,22 @@ namespace AF.DataAccess
     {
         // This method creates an item instance based on the provided item type [EN]
         // Bu metot, sağlanan eşya türüne göre bir eşya oluşturur [TR]
-        public IDataResult<IItem> CreateItem(ItemType ıtemType)
+        public IDataResult<IItem> CreateItem(ItemName ıtemName)
         {
-            switch (ıtemType)
+            switch (ıtemName)
             {
-                case ItemType.Damage: return new DataResult<IItem>(true, "Item created successfully.", new Bomb());
-                case ItemType.Defense: return new DataResult<IItem>(true, "Item created successfully.", new DefensePotion());
-                case ItemType.Healing: return new DataResult<IItem>(true, "Item created successfully.", new GreenHerb());
-                case ItemType.Mana: return new DataResult<IItem>(true, "Item created successfully.", new ManaPotion());
-                default: return new DataResult<IItem>(false, "Invalid item type.", null);
+                case ItemName.Bomb: return new DataResult<IItem>(true, "Item created successfully.", new Bomb());
+                case ItemName.DefensePotion: return new DataResult<IItem>(true, "Item created successfully.", new DefensePotion());
+                case ItemName.GreenHerb: return new DataResult<IItem>(true, "Item created successfully.", new GreenHerb());
+                case ItemName.ManaPotion: return new DataResult<IItem>(true, "Item created successfully.", new ManaPotion());
+                default: return new DataResult<IItem>(false, "Invalid item name.", null);
             }
         }
-        // This method retrieves all available item types [EN]
-        // Bu metot, mevcut tüm eşya türlerini listeler [TR]
-        public List<ItemType> GetAllItemTypes()
+        // This method retrieves all available item names [EN]
+        // Bu metot, mevcut tüm eşya isimlerini listeler [TR]
+        public List<ItemName> GetAllItemNames()
         {
-            return Enum.GetValues(typeof(ItemType)).Cast<ItemType>().ToList();
+            return Enum.GetValues(typeof(ItemName)).Cast<ItemName>().ToList();
         }
     }
 }

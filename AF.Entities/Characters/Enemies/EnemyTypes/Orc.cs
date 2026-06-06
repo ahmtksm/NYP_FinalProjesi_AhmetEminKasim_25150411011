@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Defense;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Defense;
 using AF.Entities.Skills.SkillTypes.Buff;
 using AF.Entities.Skills.SkillTypes.Damage;
 using System;
@@ -15,7 +16,7 @@ namespace AF.Entities.Characters.Enemies.EnemyTypes
     /// </summary>
     public class Orc : Enemy
     {
-        public Orc(string name) : base("Orc", 100, new Stats(20, 10, 5, 5, 5, 0))
+        public Orc(string name) : base("Orc", 100, new Stats(20, 10, 5, 5, 5, 0), EnemyType.Orc)
         {
             Skills.Add(new Rage());
             Skills.Add(new BloodSlash());

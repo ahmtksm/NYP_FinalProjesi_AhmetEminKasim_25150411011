@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Defense;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Defense;
 using AF.Entities.Items.ItemTypes.Mana;
 using AF.Entities.Skills.SkillTypes.Buff;
 using AF.Entities.Skills.SkillTypes.Damage;
@@ -18,7 +19,7 @@ namespace AF.Entities.Characters.Enemies.EnemyTypes
     /// </summary>
     public class Demon : Enemy
     {
-        public Demon(string name) : base("Demon", 150, new Stats(35, 20, 15, 5, 10, 30))
+        public Demon(string name) : base("Demon", 150, new Stats(35, 20, 15, 5, 10, 30), EnemyType.Demon)
         {
             Skills.Add(new Fireball());
             Skills.Add(new Burn());

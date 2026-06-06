@@ -15,8 +15,10 @@ namespace AF.Entities.Enums
     {
         Attack = 0,
         Skill = 1,
-        Skip = 2,
+        UseItem = 2,
         Defense = 3,
-        UseItem = 4
+        Skip = 4,
+        Save = 5,
+        Quit = 6
     }
 }

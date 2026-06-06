@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Defense;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Defense;
 using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Skills.SkillTypes.Buff;
 using AF.Entities.Skills.SkillTypes.Heal;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Paladin : Player
     {
-        public Paladin(string name) : base("Paladin", 150, new Stats(20, 20, 10, 5, 8, 60))
+        public Paladin(string name) : base("Paladin", 150, new Stats(20, 20, 10, 5, 8, 60), PlayerType.Paladin)
         {
             Skills.Add(new Heal());
             Skills.Add(new Shield());

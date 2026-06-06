@@ -1,6 +1,6 @@
 ﻿using AF.Entities.Characters;
 using AF.Entities.Enums;
-using AF.Entities.Interfaces;
+using AF.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +19,14 @@ namespace AF.Entities.Items
         public string Description { get; protected set; } // Description of the item [EN] / Eşyanın açıklaması [TR]
         public bool Consumable { get; protected set; } // Whether the item is consumed on use [EN] / Eşyanın kullanılıp kullanılmadığı [TR]
         public ItemType ItemType { get; protected set; } // Item Category (Damage, Healing, etc.) [EN] / Eşya Kategorisi (Hasar, İyileştirme, vb.) [TR]
-        protected Item(string name, string description, ItemType itemType)
+        public ItemName ItemName {  get; protected set; } // Enum name of the item for saving/loading [EN] / Kaydetme/yükleme için eşyanın enum adı [TR]
+        protected Item(string name, string description, ItemType itemType, ItemName ıtemName)
         {
             Name = name;
             Description = description;
             ItemType = itemType;
-            Consumable = true;
+            ItemName = ıtemName;
+            Consumable = true;            
         }
     }
 }

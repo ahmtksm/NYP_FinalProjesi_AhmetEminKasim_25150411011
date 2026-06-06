@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AF.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ namespace AF.Entities.Characters.Enemies
     /// </summary>
     public class Enemy : Character
     {
-        public Enemy(string name, int maxHealth, Stats stats) : base(name, maxHealth, stats)
+        public EnemyType EnemyType { get; protected set; } // Type of enemy (e.g., Goblin, Dragon) [EN] / Düşman türü (örneğin, Goblin, Dragon) [TR]
+        public Enemy(string name, int maxHealth, Stats stats, EnemyType enemyType) : base(name, maxHealth, stats)
         {
-
+            EnemyType = enemyType;
         }
     }
 }

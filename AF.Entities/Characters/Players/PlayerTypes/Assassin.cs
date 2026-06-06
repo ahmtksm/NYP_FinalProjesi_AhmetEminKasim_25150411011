@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Damage;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Damage;
 using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Skills.SkillTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Debuff;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Assassin : Player
     {
-        public Assassin(string name) : base("Assassin", 90, new Stats(20, 5, 40, 30, 25, 50))
+        public Assassin(string name) : base("Assassin", 90, new Stats(20, 5, 40, 30, 25, 50), PlayerType.Assassin)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Poison());

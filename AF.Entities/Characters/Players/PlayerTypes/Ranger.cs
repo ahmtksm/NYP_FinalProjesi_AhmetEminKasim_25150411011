@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Damage;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Damage;
 using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Skills.SkillTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Debuff;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Ranger : Player
     {
-        public Ranger(string name) : base("Ranger", 110, new Stats(22, 10, 20, 20, 18, 50))
+        public Ranger(string name) : base("Ranger", 110, new Stats(22, 10, 20, 20, 18, 50), PlayerType.Ranger)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Burn());

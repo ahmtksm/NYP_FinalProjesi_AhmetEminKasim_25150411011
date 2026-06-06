@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Healing;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Healing;
 using AF.Entities.Items.ItemTypes.Mana;
 using AF.Entities.Skills.SkillTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Debuff;
@@ -16,7 +17,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Mage : Player
     {
-        public Mage(string name) : base("Mage", 80, new Stats(15, 5, 15, 10, 15, 100))
+        public Mage(string name) : base("Mage", 80, new Stats(15, 5, 15, 10, 15, 100), PlayerType.Mage)
         {
             Skills.Add(new Fireball());
             Skills.Add(new Freeze());

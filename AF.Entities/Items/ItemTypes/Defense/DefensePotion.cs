@@ -15,7 +15,7 @@ namespace AF.Entities.Items.ItemTypes.Defense
     public class DefensePotion : Item
     {
         public int DefenseBoost { get; private set; } // The amount of defense boost provided by the potion [EN] / İksirin sağladığı savunma artışı miktarı [TR]
-        public DefensePotion() : base("Defense Potion", "A potion that increases defense", ItemType.Defense)
+        public DefensePotion() : base("Defense Potion", "A potion that increases defense", ItemType.Defense, ItemName.DefensePotion)
         {
             DefenseBoost = 10;
         }

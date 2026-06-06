@@ -1,4 +1,5 @@
-﻿using AF.Entities.Items.ItemTypes.Damage;
+﻿using AF.Entities.Enums;
+using AF.Entities.Items.ItemTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Damage;
 using AF.Entities.Skills.SkillTypes.Debuff;
 using System;
@@ -15,7 +16,7 @@ namespace AF.Entities.Characters.Enemies.EnemyTypes
     /// </summary>
     public class Goblin : Enemy
     {
-        public Goblin(string name) : base("Goblin", 60, new Stats(10, 5, 5, 10, 10, 0))
+        public Goblin(string name) : base("Goblin", 60, new Stats(10, 5, 5, 10, 10, 0), EnemyType.Goblin)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Poison());

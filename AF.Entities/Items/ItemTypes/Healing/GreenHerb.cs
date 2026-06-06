@@ -15,7 +15,7 @@ namespace AF.Entities.Items.ItemTypes.Healing
     public class GreenHerb : Item
     {
         public int HealAmount { get; private set; } // Amount of restored health [EN] / Yenilenen sağlık miktarı [TR]
-        public GreenHerb() : base("Green Herb", "A simple healing herb", ItemType.Healing)
+        public GreenHerb() : base("Green Herb", "A simple healing herb", ItemType.Healing, ItemName.GreenHerb)
         {
             HealAmount = 20;
         }

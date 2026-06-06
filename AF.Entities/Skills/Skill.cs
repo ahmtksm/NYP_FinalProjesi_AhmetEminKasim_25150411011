@@ -1,6 +1,6 @@
 ﻿using AF.Entities.Characters;
 using AF.Entities.Enums;
-using AF.Entities.Interfaces;
+using AF.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

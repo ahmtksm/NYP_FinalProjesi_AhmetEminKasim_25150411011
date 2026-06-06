@@ -1,17 +1,16 @@
 ﻿using AF.Entities.Characters.Enemies;
 using AF.Entities.Enums;
-using AF.Entities.Interfaces;
+using AF.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AF.Business.Interfaces
+namespace AF.Business.Abstract
 {
     /// <summary>
-    /// Service interface for determining enemy actions [EN]
-    /// Düşman eylemlerini belirleyen servis'in arayüzü [TR]
+    /// Düşman eylemlerini belirleyen servis'in arayüzü
     /// </summary>
     public interface IEnemyAIService
     {

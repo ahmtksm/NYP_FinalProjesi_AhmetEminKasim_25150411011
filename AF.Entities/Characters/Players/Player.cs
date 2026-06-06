@@ -1,4 +1,5 @@
-﻿using AF.Entities.Interfaces;
+﻿using AF.Entities.Enums;
+using AF.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,10 @@ namespace AF.Entities.Characters.Players
     /// </summary>
     public class Player : Character
     {
-        public Player(string name, int maxHealth, Stats stats) : base(name, maxHealth, stats)
+        public PlayerType PlayerType { get; protected set; } // Type of player (e.g., Warrior, Mage) [EN] / Oyuncu türü (örneğin, Savaşçı, Büyücü) [TR]
+        public Player(string name, int maxHealth, Stats stats, PlayerType playerType) : base(name, maxHealth, stats)
         {
-
+            PlayerType = playerType;
         }
     }
 }

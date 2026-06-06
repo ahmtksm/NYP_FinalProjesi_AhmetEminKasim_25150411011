@@ -1,6 +1,6 @@
 ﻿using AF.Core.Results;
 using AF.Entities.Enums;
-using AF.Entities.Interfaces;
+using AF.Entities.Abstract;
 using AF.Entities.Skills;
 using AF.Entities.Skills.SkillTypes.Buff;
 using AF.Entities.Skills.SkillTypes.Damage;

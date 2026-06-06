@@ -15,7 +15,7 @@ namespace AF.Entities.Items.ItemTypes.Damage
     public class Bomb : Item
     {
         public int Damage { get; private set; } // Damage dealt to enemies [EN] / Düşmanlara verilen hasar [TR]
-        public Bomb() : base("Bomb", "A powerful explosive", ItemType.Damage)
+        public Bomb() : base("Bomb", "A powerful explosive", ItemType.Damage, ItemName.Bomb)
         {
             Damage = 30;
         }
