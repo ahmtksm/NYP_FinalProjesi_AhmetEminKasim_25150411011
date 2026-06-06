@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 namespace AF.Entities.Abstract
 {
     /// <summary>
-    /// Represents an item behavior [EN]
-    /// Eşya davranışını temsil eder [TR]
+    /// Eşya davranışını temsil eder
     /// </summary>
     public interface IItem
     {
-        string Name { get; } // Name of the item [EN] / Eşyanın adı [TR]
-        string Description { get; } // Description of the item [EN] / Eşyanın açıklaması [TR]
-        ItemType ItemType { get; } // Item Category (Damage, Healing, etc.) [EN] / Eşya kategorisi (Hasar, İyileştirme, vb.) [TR]
-        ItemName ItemName { get; } // Specific item name (e.g., Sword, Potion) [EN] / Belirli eşya adı (örneğin, Kılıç, İksir) [TR]
+        string Name { get; } // Eşyanın adı
+        string Description { get; } // Eşyanın açıklaması
+        ItemType ItemType { get; } // Eşya kategorisi (Hasar, İyileştirme, vb.)
+        ItemName ItemName { get; } // Belirli eşya adı (İksir vb.)
     }
 }

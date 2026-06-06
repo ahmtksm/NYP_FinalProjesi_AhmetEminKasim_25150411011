@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all enemy characters [EN]
-    /// Tüm düşman karakterlerini tanımlar [TR]
+    /// Tüm düşman karakterlerini tanımlar
     /// </summary>
     public enum EnemyType
     {

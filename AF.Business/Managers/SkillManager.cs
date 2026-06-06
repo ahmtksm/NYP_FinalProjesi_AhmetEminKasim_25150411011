@@ -21,8 +21,15 @@ namespace AF.Business.Managers
     /// </summary>
     public class SkillManager : ISkillService
     {
-        // Skill kullanma işlemini yöneten yöntem
-        public IResult UseSkill(Character user, Character target, ISkill skill) 
+        private readonly Random random; // Bazı beceri etkileri için rastgele sayı üreticisi
+        public SkillManager()
+        {
+            random = new Random();
+        }
+        /// <summary>
+        /// Skill kullanma işlemini yöneten yöntem
+        /// </summary>
+        public IResult UseSkill(Character user, Character target, ISkill skill)
         {
             // Beceriyi kullanma işlemine devam etmeden önce her iki karakterin de canlı olup olmadığını kontrol eder
             if (!user.IsAlive) return new Result(false, $"{user.Name} is dead and cannot use skills.", ResultType.Error);
@@ -39,71 +46,84 @@ namespace AF.Business.Managers
 
             user.Stats.Mana -= skill.ManaCost; // Becerinin mana maliyetini kullanıcıdan düşer
             ApplySkillEffect(user, target, skill); // Becerinin etkisini hedef karaktere uygular
-            skill.RemainingCooldown = skill.Cooldown;
+            skill.RemainingCooldown = skill.Cooldown; // Becerinin bekletme süresini başlatır
 
-            return new Result(true, $"{user.Name} used {skill.Name} on {target.Name}.", ResultType.Success);
+            return new Result(true, $"{user.Name} used {skill.Name} on {target.Name}.", ResultType.Success); // Başarılı bir şekilde beceri kullanıldığını belirten bir sonuç döner
         }
 
-        // Tur sonunda karakterin becerilerinin bekletme sürelerini azaltır
-        public IResult ReduceCooldowns(Character character) 
+        /// <summary>
+        /// Tur sonunda karakterin becerilerinin bekletme sürelerini azaltır
+        /// </summary>
+        public IResult ReduceCooldowns(Character character)
         {
-            foreach (var skill in character.Skills)
+            foreach (var skill in character.Skills) // Karakterin tüm becerileri üzerinde döner
             {
-                if (skill.RemainingCooldown > 0) skill.RemainingCooldown--;
+                if (skill.RemainingCooldown > 0) skill.RemainingCooldown--; // Bekletme süresi 0'dan büyükse, her tur sonunda 1 azaltır
             }
 
-            return new Result(true, "Cooldowns reduced.", ResultType.Success);
+            return new Result(true, "Cooldowns reduced.", ResultType.Success); // Başarılı bir şekilde bekletme sürelerinin azaltıldığını belirten bir sonuç döner
         }
 
-        // Mana kontrolü yapar
-        public bool HasEnoughMana(Character character, ISkill skill) 
+        /// <summary>
+        /// Mana kontrolü yapar
+        /// </summary>
+        public bool HasEnoughMana(Character character, ISkill skill)
         {
-            return character.Stats.Mana >= skill.ManaCost;
+            return character.Stats.Mana >= skill.ManaCost; // Karakterin mevcut mana puanlarının becerinin mana maliyetinden büyük veya eşit olduğunu kontrol eder
         }
 
-        // Becerinin bekletme süresini kontrol eder
-        public bool IsSkillReady(ISkill skill) 
+        /// <summary>
+        /// Becerinin bekletme süresini kontrol eder
+        /// </summary>
+        public bool IsSkillReady(ISkill skill)
         {
-            return skill.RemainingCooldown <= 0;
+            return skill.RemainingCooldown <= 0; // Becerinin bekletme süresinin 0 veya daha az olduğunu kontrol eder
         }
 
-        // Kullanılan becerinin etkisini hedef karaktere uygular
-        private void ApplySkillEffect(Character user, Character target, ISkill skill) 
+        /// <summary>
+        /// Kullanılan becerinin etkisini hedef karaktere uygular
+        /// </summary>
+        private void ApplySkillEffect(Character user, Character target, ISkill skill)
         {
+            int rndm = random.Next(100);
             switch (skill)
             {
                 case Rage rage:
-                    user.Stats.Damage += rage.DamageBoost;
+                    user.Stats.Damage += rage.DamageBoost; // Kullanıcının hasarını artırır
                     break;
                 case Shield shield:
-                    user.Stats.Defense += shield.DefenseBoost;
+                    user.Stats.Defense += shield.DefenseBoost; // Kullanıcının savunmasını artırır
                     break;
                 case Backstab backstab:
-                    target.Health -= backstab.Damage;
+                    target.Health -= backstab.Damage; // Hedefe doğrudan hasar verir
+                    user.Stats.CritChance += backstab.CritBonus; // Kullanıcının kritik vuruş şansını artırır
                     break;
                 case BloodSlash bloodSlash:
-                    target.Health -= bloodSlash.Damage;
+                    target.Health -= bloodSlash.Damage; // Hedefe doğrudan hasar verir
+                    user.Health -= bloodSlash.SelfDamage; // Kullanıcıya geri hasar verir
                     break;
                 case Fireball fireball:
-                    target.Health -= fireball.Damage;
+                    target.Health -= fireball.Damage; // Hedefe doğrudan hasar verir
+                    if (rndm < fireball.BurnChance) target.Health -= fireball.Damage / 4; // Rastgele bir yanma hasarı verir
                     break;
                 case Burn burn:
-                    target.Health -= burn.Damage;
+                    target.Health -= burn.Damage; // Hedefe doğrudan hasar verir
+                    target.Stats.CritChance -= burn.CritChanceReduction; // Hedefin kritik vuruş şansını azaltır
                     break;
                 case Freeze freeze:
-                    target.Stats.Speed -= Math.Max(0, freeze.SpeedReduction);
+                    target.Stats.DodgeChance -= freeze.DodgeReduction; // Hedefin kaçınma şansını azaltır
                     break;
                 case Poison poison:
-                    target.Health -= poison.Damage;
+                    target.Health -= rndm / 10; // Rastgele bir zehir hasarı verir
                     break;
                 case Heal heal:
-                    target.Health += heal.HealAmount;
-                    if (target.Health > target.MaxHealth) target.Health = target.MaxHealth;
+                    target.Health += heal.HealAmount; // Hedefin sağlığını iyileştirir
+                    if (target.Health > target.MaxHealth) target.Health = target.MaxHealth; // Sağlığın maksimum sağlığı aşmasını engeller
                     break;
                 case LifeDrain lifeDrain:
-                    target.Health -= lifeDrain.Damage;
-                    user.Health += lifeDrain.HealAmount;
-                    if (user.Health > user.MaxHealth) user.Health = user.MaxHealth;
+                    target.Health -= lifeDrain.HealTaken; // Hedefe hasar verir
+                    user.Health += lifeDrain.HealTaken; // Kullanıcının sağlığını iyileştirir
+                    if (user.Health > user.MaxHealth) user.Health = user.MaxHealth; // Sağlığın maksimum sağlığı aşmasını engeller
                     break;
             }
             if (target.Health < 0) target.Health = 0; // Sağlığın 0'ın altına düşmemesini sağlar

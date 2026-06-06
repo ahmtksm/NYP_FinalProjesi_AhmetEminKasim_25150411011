@@ -7,24 +7,21 @@ using System.Threading.Tasks;
 namespace AF.Entities
 {
     /// <summary>
-    /// Stores combat statistics of a character [EN]
-    /// Karakterin savaş istatistiklerini tutar [TR]
+    /// Karakterin savaş istatistiklerini tutar
     /// </summary>
     public class Stats
     {
-        public int Damage { get; set; } // Base damage value [EN] / Temel hasar değeri [TR]
-        public int Defense { get; set; } // Base defense value [EN] / Temel savunma değeri [TR]
-        public int CritChance { get; set; } // Chance to land a critical hit [EN] / Kritik vuruş yapma şansı [TR]
-        public int DodgeChance { get; set; } // Chance to dodge an attack [EN] / Bir saldırıyı savuşturma şansı [TR]
-        public int Speed { get; set; } // Movement speed and attack speed [EN] / Hareket hızı ve saldırı hızı [TR]
-        public int Mana { get; set; } // Mana value used for skills [EN] / Yetenekler için kullanılan mana değeri [TR]
-        public Stats(int damage, int defense, int critChance, int dodgeChance, int speed, int mana)
+        public int Damage { get; set; } // Temel hasar değeri
+        public int Defense { get; set; } // Temel savunma değeri
+        public int CritChance { get; set; } // Kritik vuruş yapma şansı
+        public int DodgeChance { get; set; } // Bir saldırıyı savuşturma şansı
+        public int Mana { get; set; } // Yetenekler için kullanılan mana değeri
+        public Stats(int damage, int defense, int critChance, int dodgeChance, int mana)
         {
             Damage = damage;
             Defense = defense;
             CritChance = critChance;
             DodgeChance = dodgeChance;
-            Speed = speed;
             Mana = mana;
         }
     }

@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters
 {
     /// <summary>
-    /// Base class for all playable and enemy characters [EN]
-    /// Tüm oynanabilir ve düşman karakterleri için temel sınıf [TR]
+    /// Tüm oynanabilir ve düşman karakterleri temsil eder
     /// </summary>
     public abstract class Character
     {
-        public string Name { get; protected set; } // Character's name [EN] / Karakterin adı [TR]
-        public int Health { get; set; } // Current health points [EN] / Mevcut sağlık puanları [TR]
-        public int MaxHealth { get; protected set; } // Maximum health points [EN] / Maksimum sağlık puanları [TR]
-        public bool IsAlive => Health > 0; // Indicates if the character is alive [EN] / Karakterin hayatta olup olmadığını gösterir [TR]
-        public bool IsDefending { get; set; } // Indicates if the character is defending [EN] / Karakterin savunma modunda olup olmadığını gösterir [TR]
-        public Stats Stats { get; set; } // Character's stats [EN] / Karakterin istatistikleri [TR]
-        public List<ISkill> Skills { get; protected set; } // List of skills the character can use [EN] / Karakterin kullanabileceği becerilerin listesi [TR]
-        public List<IItem> Inventory { get; protected set; } // List of items the character has in their inventory [EN] / Karakterin envanterinde bulunan eşyaların listesi [TR]
+        public string Name { get; protected set; } // Karakterin adı
+        public int Health { get; set; } // Mevcut sağlık
+        public int MaxHealth { get; protected set; } // Maksimum sağlık
+        public bool IsAlive => Health > 0; // Karakterin hayatta olup olmadığını gösterir
+        public bool IsDefending { get; set; } // Karakterin savunma modunda olup olmadığını gösterir
+        public Stats Stats { get; set; } // Karakterin istatistikleri
+        public List<ISkill> Skills { get; protected set; } // Karakterin kullanabileceği becerilerin listesi
+        public List<IItem> Inventory { get; protected set; } // Karakterin envanterinde bulunan eşyaların listesi
         protected Character(string name, int maxHealth, Stats stats)
         {
             Name = name;

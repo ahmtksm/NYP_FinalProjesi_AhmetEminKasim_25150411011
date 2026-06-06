@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all possible action types during combat [EN]
-    /// Savaş sırasında mümkün olan tüm eylem türlerini tanımlar [TR]
+    /// Savaş sırasında mümkün olan tüm eylem türlerini tanımlar
     /// </summary>
     public enum ActionType
     {

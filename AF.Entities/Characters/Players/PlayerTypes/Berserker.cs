@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Heavy melee fighter with high damage [EN]
-    /// Ağırlıklı yakın dövüşçü, yüksek hasar verir [TR]
+    /// Ağırlıklı yakın dövüşçü, yüksek hasar verir
     /// </summary>
     public class Berserker : Player
     {
-        public Berserker(string name) : base("Berserker", 140, new Stats(35, 10, 15, 5, 10, 30), PlayerType.Berserker)
+        public Berserker() : base("Berserker", 140, new Stats(35, 10, 15, 5, 30), PlayerType.Berserker)
         {
             Skills.Add(new Rage());
             Skills.Add(new BloodSlash());

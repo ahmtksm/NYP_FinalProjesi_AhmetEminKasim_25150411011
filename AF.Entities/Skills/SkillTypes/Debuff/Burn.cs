@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 namespace AF.Entities.Skills.SkillTypes.Debuff
 {
     /// <summary>
-    /// Damage over time fire skill [EN]
-    /// Zamanla hasar veren yanma becerisi [TR]
+    /// Hasar verir ve kritik hasar atma şansını azaltır
     /// </summary>
     public class Burn : Skill
     {
-        public int Damage { get; private set; } // Damage dealt each turn [EN] / Her turda verilen hasar [TR]
-        public int Duration { get; private set; } // Number of turns the burn effect lasts [EN] / Yanma efektinin süresi [TR]
-        public Burn() : base("Burn", "Causes the target to take damage over time.", 3, 20, SkillType.Debuff, SkillName.Burn)
+        public int Damage { get; private set; } // Verilen hasar
+        public int CritChanceReduction { get; private set; } // Hedefin kritik hasar atma şansını azaltma miktarı
+        public Burn() : base("Burn", "Causes the target to take damage and reduce critical hit chance.", 3, 20, SkillType.Debuff, SkillName.Burn)
         {
-            Damage = 10;
-            Duration = 3;
+            Damage = 6;
+            CritChanceReduction = 7;
         }
     }
 }

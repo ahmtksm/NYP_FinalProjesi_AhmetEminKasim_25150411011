@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 namespace AF.Entities.Skills.SkillTypes.Damage
 {
     /// <summary>
-    /// Offensive fire magic skill [EN]
-    /// Yanma efekti uygulayan saldırı becerisi [TR]
+    /// Yanma efekti uygulayan saldırı becerisi
     /// </summary>
     public class Fireball : Skill
     {
-        public int Damage { get; private set; } // Base damage of the fireball [EN] / Ateş topunun temel hasarı [TR]
-        public int BurnChance { get; private set; } // Chance to inflict burn status effect (percentage) [EN] / Yanma efekti uygulama şansı (yüzde) [TR]
+        public int Damage { get; private set; } // Ateş topunun temel hasarı
+        public int BurnChance { get; private set; } // Yanma efekti uygulama şansı
         public Fireball() : base("Fireball", "Launches a fireball at the enemy, dealing damage and potentially causing a burn.", 3, 25, SkillType.Damage, SkillName.Fireball)
         {
             Damage = 35;

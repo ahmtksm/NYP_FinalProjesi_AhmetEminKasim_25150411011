@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Items.ItemTypes.Defense
 {
     /// <summary>
-    /// Potion that increases the defense [EN]
-    /// Savunmayı artıran iksir [TR]
+    /// Savunmayı artıran iksir
     /// </summary>
     public class DefensePotion : Item
     {
-        public int DefenseBoost { get; private set; } // The amount of defense boost provided by the potion [EN] / İksirin sağladığı savunma artışı miktarı [TR]
+        public int DefenseBoost { get; private set; } // İksirin sağladığı savunma artışı miktarı
         public DefensePotion() : base("Defense Potion", "A potion that increases defense", ItemType.Defense, ItemName.DefensePotion)
         {
             DefenseBoost = 10;

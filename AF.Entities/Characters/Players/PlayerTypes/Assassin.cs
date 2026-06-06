@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Fast character with high critical chance [EN]
-    /// Yüksek kritik şansı olan hızlı karakter [TR]
+    /// Yüksek kritik şansı olan hızlı karakter
     /// </summary>
     public class Assassin : Player
     {
-        public Assassin(string name) : base("Assassin", 90, new Stats(20, 5, 40, 30, 25, 50), PlayerType.Assassin)
+        public Assassin() : base("Assassin", 90, new Stats(20, 5, 40, 30, 50), PlayerType.Assassin)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Poison());

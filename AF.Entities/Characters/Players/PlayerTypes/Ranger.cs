@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Agile ranged fighter with balanced combat abilities [EN]
-    /// Hafif ve uzaktan dövüşen savaşçı, dengeli combat yetenekleriyle bilinir [TR]
+    /// Dengeli combat yetenekleriyle bilinir
     /// </summary>
     public class Ranger : Player
     {
-        public Ranger(string name) : base("Ranger", 110, new Stats(22, 10, 20, 20, 18, 50), PlayerType.Ranger)
+        public Ranger() : base("Ranger", 110, new Stats(22, 10, 20, 20, 50), PlayerType.Ranger)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Burn());

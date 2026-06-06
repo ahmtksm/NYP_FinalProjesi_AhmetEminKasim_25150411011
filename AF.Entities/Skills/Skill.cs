@@ -10,18 +10,17 @@ using System.Threading.Tasks;
 namespace AF.Entities.Skills
 {
     /// <summary>
-    /// Base class for all skills [EN]
-    /// Tüm beceriler için temel sınıf [TR]
+    /// Tüm beceriler için temel sınıf
     /// </summary>
     public abstract class Skill : ISkill
     {
-        public string Name { get; protected set; } // Name of the skill [EN] / Becerinin adı [TR]
-        public string Description { get; protected set; } // Description of the skill's effect [EN] / Becerinin etkisinin açıklaması [TR]
-        public int Cooldown { get; protected set; } // Cooldown time in turns [EN] / Tur cinsinden bekleme süresi [TR]
-        public int RemainingCooldown { get; set; } // Remaining cooldown time in turns [EN] / Tur cinsinden kalan bekleme süresi [TR]
-        public int ManaCost { get; protected set; } // Mana cost to use the skill  [EN] / Beceriyi kullanmak için gereken mana değeri [TR]
-        public SkillType SkillType { get; protected set; } // Skill Category [EN] / Beceri Kategorisi [TR]
-        public SkillName SkillName { get; protected set; } // Enum value for the skill name [EN] / Beceri adı için enum değeri [TR]
+        public string Name { get; protected set; } // Becerinin adı
+        public string Description { get; protected set; } // Becerinin etkisinin açıklaması
+        public int Cooldown { get; protected set; } // Tur cinsinden bekleme süresi
+        public int RemainingCooldown { get; set; } // Tur cinsinden kalan bekleme süresi
+        public int ManaCost { get; protected set; } // Beceriyi kullanmak için gereken mana değeri
+        public SkillType SkillType { get; protected set; } // Beceri Kategorisi
+        public SkillName SkillName { get; protected set; } // Beceri adı için enum değeri
         protected Skill(string name, string description, int cooldown, int manaCost, SkillType skillType, SkillName skillName)
         {
             Name = name;

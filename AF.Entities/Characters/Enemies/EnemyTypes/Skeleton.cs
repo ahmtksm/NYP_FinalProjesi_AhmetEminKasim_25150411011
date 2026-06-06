@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Enemies.EnemyTypes
 {
     /// <summary>
-    /// Undead enemy that relies on physical attacks and has moderate health [EN]
-    /// Fiziksel saldırılara dayanan ve orta düzeyde sağlığa sahip düşman [TR]
+    /// Fiziksel saldırılara dayanan ve orta düzeyde sağlığa sahip düşman
     /// </summary>
     public class Skeleton : Enemy
     {
-        public Skeleton(string name) : base("Skeleton", 70, new Stats(15, 5, 10, 5, 10, 0), EnemyType.Skeleton)
+        public Skeleton() : base("Skeleton", 70, new Stats(15, 5, 10, 5, 10), EnemyType.Skeleton)
         {
             Skills.Add(new Shield());
             Skills.Add(new BloodSlash());

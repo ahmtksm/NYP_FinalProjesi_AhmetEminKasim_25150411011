@@ -14,29 +14,28 @@ using System.Threading.Tasks;
 namespace AF.DataAccess
 {
     /// <summary>
-    /// This repository is responsible for creating item instances based on the provided item type [EN]
-    /// Bu depo, sağlanan eşya türüne göre eşya oluşturmakatan sorumludur [TR]
+    /// Bu depo, sağlanan eşya türüne göre eşya oluşturmakatan sorumludur
     /// </summary>
     public class ItemRepository
     {
-        // This method creates an item instance based on the provided item type [EN]
-        // Bu metot, sağlanan eşya türüne göre bir eşya oluşturur [TR]
+        /// <summary>
+        /// Bu metot, sağlanan eşya türüne göre bir eşya oluşturur
+        /// </summary>
         public IDataResult<IItem> CreateItem(ItemName ıtemName)
         {
             switch (ıtemName)
             {
-                case ItemName.Bomb: return new DataResult<IItem>(true, "Item created successfully.", new Bomb());
-                case ItemName.DefensePotion: return new DataResult<IItem>(true, "Item created successfully.", new DefensePotion());
-                case ItemName.GreenHerb: return new DataResult<IItem>(true, "Item created successfully.", new GreenHerb());
-                case ItemName.ManaPotion: return new DataResult<IItem>(true, "Item created successfully.", new ManaPotion());
-                default: return new DataResult<IItem>(false, "Invalid item name.", null);
+                case ItemName.Bomb: 
+                    return new DataResult<IItem>(true, "Bomb successfully.", new Bomb());
+                case ItemName.DefensePotion: 
+                    return new DataResult<IItem>(true, "Defense Potion successfully.", new DefensePotion());
+                case ItemName.GreenHerb: 
+                    return new DataResult<IItem>(true, "Green herb successfully.", new GreenHerb());
+                case ItemName.ManaPotion: 
+                    return new DataResult<IItem>(true, "Mana Potion successfully.", new ManaPotion());
+                default: 
+                    return new DataResult<IItem>(false, "Invalid item name.", null);
             }
-        }
-        // This method retrieves all available item names [EN]
-        // Bu metot, mevcut tüm eşya isimlerini listeler [TR]
-        public List<ItemName> GetAllItemNames()
-        {
-            return Enum.GetValues(typeof(ItemName)).Cast<ItemName>().ToList();
         }
     }
 }

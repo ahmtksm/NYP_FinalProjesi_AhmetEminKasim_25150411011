@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all playable characters [EN]
-    /// Tüm oynanabilir karakterleri tanımlar [TR]
+    /// Tüm oynanabilir karakterleri tanımlar
     /// </summary>
     public enum PlayerType
     {

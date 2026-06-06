@@ -22,7 +22,9 @@ namespace AF.Business.Managers
             random = new Random();
         }
 
-        // Düşmanın bu turda hangi eylemi gerçekleştireceğini belirleyen metod
+        /// <summary>
+        /// Düşmanın bu turda hangi eylemi gerçekleştireceğini belirleyen metod
+        /// </summary>
         public ActionType ChooseAction(Enemy enemy) 
         {
             int rndm = random.Next(100);
@@ -40,13 +42,17 @@ namespace AF.Business.Managers
             return ActionType.Attack; 
         }
 
-        // Kullanılabilecek bir yetenek seç
+        /// <summary>
+        /// Kullanılabilecek bir yetenek seç
+        /// </summary>
         public ISkill? ChooseSkill(Enemy enemy) 
         {
             return enemy.Skills.FirstOrDefault(s => s.RemainingCooldown == 0 && enemy.Stats.Mana >= s.ManaCost);
         }
 
-        // Kullanılabilecek bir eşya seç
+        /// <summary>
+        /// Kullanılabilecek bir eşya seç
+        /// </summary>
         public IItem? ChooseItem(Enemy enemy) 
         {
             if (enemy.Health <= enemy.MaxHealth * 0.3)

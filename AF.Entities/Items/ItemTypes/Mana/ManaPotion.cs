@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Items.ItemTypes.Mana
 {
     /// <summary>
-    /// Potion item that restores mana [EN]
-    /// Mana restore eden iksir [TR]
+    /// Mana yenileyen iksir 
     /// </summary>
     public class ManaPotion : Item
     {
-        public int ManaRestored { get; private set; } // The amount of mana restored by the potion [EN] / İksirin restore ettiği mana miktarı [TR]
+        public int ManaRestored { get; private set; } // İksirin yenilediği mana miktarı
         public ManaPotion() : base("Mana Potion", "A potion that restores mana", ItemType.Mana, ItemName.ManaPotion)
         {
             ManaRestored = 25;

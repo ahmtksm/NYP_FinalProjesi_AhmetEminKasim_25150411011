@@ -31,19 +31,19 @@ namespace AF.Business.Managers
             _skillRepository = skillRepository;
         }
 
-        // Mevcut oyun durumunu bir dosyaya kaydeder
+        /// <summary>
+        /// Mevcut oyun durumunu bir dosyaya kaydeder
+        /// </summary>
         public IResult Save(Player player, Enemy enemy) 
         {
             SaveData saveData = new SaveData
             {
-                PlayerName = player.Name,
                 PlayerType = player.PlayerType,
                 Health = player.Health,
                 Mana = player.Stats.Mana,
                 Inventory = player.Inventory.Select(i => i.ItemName).ToList(),
                 Skills = player.Skills.Select(s => s.SkillName).ToList(),
                 EnemyType = enemy.EnemyType,
-                EnemyName = enemy.Name,
                 EnemyHealth = enemy.Health,
                 EnemyMana = enemy.Stats.Mana
             };
@@ -52,7 +52,9 @@ namespace AF.Business.Managers
             return new Result(true, "Game saved successfully.", ResultType.Success);
         }
 
-        // Bir dosyadan oyun durumunu yükler ve oyuncu nesnesini döndürür
+        /// <summary>
+        /// Bir dosyadan oyun durumunu yükler ve oyuncu nesnesini döndürür
+        /// </summary>
         public IDataResult<GameState> Load() 
         {
             // Kaydedilmiş bir oyun olup olmadığını kontrol eder
@@ -63,7 +65,7 @@ namespace AF.Business.Managers
             // Kaydedilmiş oyun verisi bulunamazsa uygun bir hata mesajı döndürür
             if (saveData == null) return new DataResult<GameState>(false, "No saved game found.", null);
 
-            var playerData = _characterRepository.CreatePlayer(saveData.PlayerType, saveData.PlayerName);
+            var playerData = _characterRepository.CreatePlayer(saveData.PlayerType);
 
             // Kaydedilmiş oyuncu türü geçersizse uygun bir hata mesajı döndürür
             if (!playerData.Success) return new DataResult<GameState>(false, playerData.Message, null); 
@@ -88,7 +90,7 @@ namespace AF.Business.Managers
                 if (itemData.Success && itemData.Data != null) player.Inventory.Add(itemData.Data);
             }
 
-            var enemyData = _characterRepository.CreateEnemy(saveData.EnemyType, saveData.EnemyName);
+            var enemyData = _characterRepository.CreateEnemy(saveData.EnemyType);
             if (!enemyData.Success) return new DataResult<GameState>(false, enemyData.Message, null);
             if (enemyData.Data == null) return new DataResult<GameState>(false, "Enemy Data is null.", null);
 

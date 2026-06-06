@@ -1,4 +1,5 @@
-﻿using AF.Entities;
+﻿using AF.Core.Results;
+using AF.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,11 @@ using System.Threading.Tasks;
 namespace AF.DataAccess.Abstract
 {
     /// <summary>
-    /// Defines the contract for saving and loading game data [EN]
-    /// Oyun verilerini kaydetmek ve yüklemek için depo [TR]
+    /// Oyun verilerini kaydetmek ve yüklemek için depo
     /// </summary>
     public interface ISaveRepository
     {
-        void SaveGame(SaveData saveData);
+        IResult SaveGame(SaveData saveData);
         SaveData? LoadGame();
         bool SaveExists();
     }

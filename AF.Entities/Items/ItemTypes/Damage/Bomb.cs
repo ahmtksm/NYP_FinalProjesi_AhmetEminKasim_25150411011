@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Items.ItemTypes.Damage
 {
     /// <summary>
-    /// Explosive item that damages enemies [EN]
-    /// Düşmanlara zarar veren patlayıcı eşya [TR]
+    /// Düşmanlara zarar veren patlayıcı eşya
     /// </summary>
     public class Bomb : Item
     {
-        public int Damage { get; private set; } // Damage dealt to enemies [EN] / Düşmanlara verilen hasar [TR]
+        public int Damage { get; private set; } // Düşmanlara verilen hasar
         public Bomb() : base("Bomb", "A powerful explosive", ItemType.Damage, ItemName.Bomb)
         {
             Damage = 30;

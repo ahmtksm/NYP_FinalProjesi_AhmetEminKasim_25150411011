@@ -25,13 +25,17 @@ namespace AF.UI
             _gameManager = gameManager;
         }
 
-        // Ana oyun döngüsü
+        /// <summary>
+        /// Ana oyun döngüsü
+        /// </summary>
         public void Run()
         {
             while (true) { ShowMainmenu(); }
         }
 
-        // Ana menüyü gösterir ve kullanıcı seçimini yönetir
+        /// <summary>
+        /// Ana menüyü gösterir ve kullanıcı seçimini yönetir
+        /// </summary>
         private void ShowMainmenu()
         {
             Console.CursorVisible = false;
@@ -51,17 +55,20 @@ namespace AF.UI
             }
         }
 
-        // Yeni bir oyun başlatır, bir oyuncu ve bir düşman oluşturur, ardından savaşı başlatır
+        /// <summary>
+        /// Yeni bir oyun başlatır, bir oyuncu ve bir düşman oluşturur, ardından savaşı başlatır
+        /// </summary>
         private void StartNewGame()
         {
             Console.Clear();
 
-            string playerName = ConsoleInput.GetString("Enter your name: "); // Oyuncu adını alır
             List<string> options = Enum.GetValues<PlayerType>().Select(t => t.ToString()).ToList(); // Oyuncu sınıfı seçeneklerini oluşturur
-            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Info("=== Select your character ==="); ColorText.Seperator(); }, options); // Oyuncu sınıfı seçimini alır
+            options.Add("Back");
+            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Title("=== Select your character ==="); ColorText.Seperator(); }, options); // Oyuncu sınıfı seçimini alır
+            if (choice == options.Count - 1) ShowMainmenu();
             PlayerType selectedType = (PlayerType)(choice);
 
-            var playerResult = _gameManager.NewGame(selectedType, playerName);
+            var playerResult = _gameManager.NewGame(selectedType);
             if (!playerResult.Success) // Oyuncu oluşturulamazsa hata mesajı
             {
                 ColorText.Error(playerResult.Message);
@@ -81,7 +88,9 @@ namespace AF.UI
             StartBattle(player, enemyResult.Data); // Savaşı başlat
         }
 
-        // Kaydedilmiş bir oyunu yükler ve yüklenen oyuncu ile yeni bir düşmanla savaşı başlatır
+        /// <summary>
+        /// Kaydedilmiş bir oyunu yükler ve yüklenen oyuncu ile yeni bir düşmanla savaşı başlatır
+        /// </summary>
         private void LoadGame()
         {
             var result = _gameManager.LoadGame();
@@ -98,7 +107,9 @@ namespace AF.UI
             StartBattle(gameState.Player, gameState.Enemy);
         }
 
-        // Oyuncu ve düşman arasındaki savaş döngüsünü yönetir, oyuncu eylemlerini ve düşman tepkilerini işler, savaş bitene kadar devam eder
+        /// <summary>
+        /// Oyuncu ve düşman arasındaki savaş döngüsünü yönetir, oyuncu eylemlerini ve düşman tepkilerini işler, savaş bitene kadar devam eder
+        /// </summary>
         private void StartBattle(Player player, Enemy enemy)
         {
             while (!_gameManager.IsBattleOver(player, enemy))
@@ -151,20 +162,24 @@ namespace AF.UI
             else ShowDefeat();
         }
 
-        // Oyuncu ve düşman bilgileriyle savaş ekranını çizer
-        private void DrawBattleHeader(Player player, Enemy enemy)
+        /// <summary>
+        /// Oyuncu ve düşman bilgileriyle savaş ekranını çizer
+        /// </summary>
+        private void ShowPlayerAndEnemyInfo(Player player, Enemy enemy)
         {
-            ShowPlayerInfo(player);
-            ShowEnemyInfo(enemy);
+            ColorText.Info($"Player: {player.Name} | HP: {player.Health}/{player.MaxHealth} | Mana: {player.Stats.Mana}");
+            ColorText.Warning($"Enemy: {enemy.Name} | HP: {enemy.Health}/{enemy.MaxHealth}");
             ColorText.Seperator();
         }
 
-        // Savaş menüsünü gösterir, oyuncu ve düşman bilgilerini gösterir ve oyuncunun eylem seçimini alır
+        /// <summary>
+        /// Savaş menüsünü gösterir, oyuncu ve düşman bilgilerini gösterir ve oyuncunun eylem seçimini alır
+        /// </summary>
         private ActionType ShowBattleMenu(Player player, Enemy enemy)
         {
             List<string> options = new List<string> { "Attack", "Use Skill", "Use Item", "Defend", "Skip Turn", "Save Game", "Quit Game" };
 
-            int choice = ConsoleInput.NavigateMenu(() => DrawBattleHeader(player, enemy), options);
+            int choice = ConsoleInput.NavigateMenu(() => ShowPlayerAndEnemyInfo(player, enemy), options);
             ColorText.Seperator();
             switch (choice) // Oyuncu seçimine göre eylemi döndürür
             {
@@ -179,7 +194,9 @@ namespace AF.UI
             }
         }
 
-        // Oyuncunun mevcut becerilerinden birini seçmesi için bir menü gösterir
+        /// <summary>
+        /// Oyuncunun mevcut becerilerinden birini seçmesi için bir menü gösterir
+        /// </summary>
         private ISkill? SelectSkill(Player player, Enemy enemy)
         {
             if (player.Skills.Count == 0) // Eğer oyuncunun becerisi yoksa hata mesajı gösterir ve boş döndürür
@@ -191,12 +208,14 @@ namespace AF.UI
 
             List<string> options = player.Skills.Select(s => $"{s.Name} | {s.Description} | Mana: {s.ManaCost} | Cooldown: {s.RemainingCooldown}").ToList();
             options.Add("Back");
-            int choice = ConsoleInput.NavigateMenu(() => DrawBattleHeader(player, enemy), options);
+            int choice = ConsoleInput.NavigateMenu(() => ShowPlayerAndEnemyInfo(player, enemy), options);
             if (choice == options.Count - 1) return null;
             return player.Skills[choice];
         }
 
-        // Oyuncunun envanterinden bir öğe seçmesi için bir menü gösterir
+        /// <summary>
+        /// Oyuncunun envanterinden bir öğe seçmesi için bir menü gösterir
+        /// </summary>
         private IItem? SelectItem(Player player, Enemy enemy)
         {
             if (player.Inventory.Count == 0) // Eğer oyuncunun envanterinde öğe yoksa hata mesajı gösterir ve boş döndürür
@@ -208,24 +227,14 @@ namespace AF.UI
 
             List<string> options = player.Inventory.Select(i => $"{i.Name} | {i.Description}").ToList();
             options.Add("Back");
-            int choice = ConsoleInput.NavigateMenu(() => DrawBattleHeader(player, enemy), options);
+            int choice = ConsoleInput.NavigateMenu(() => ShowPlayerAndEnemyInfo(player, enemy), options);
             if (choice == options.Count - 1) return null;
             return player.Inventory[choice];
         }
 
-        // Oyuncu bilgilerini gösterir
-        private void ShowPlayerInfo(Player player)
-        {
-            ColorText.Info($"Player: {player.Name} | HP: {player.Health}/{player.MaxHealth} | Mana: {player.Stats.Mana}");
-        }
-
-        // Düşman bilgilerini gösterir
-        private void ShowEnemyInfo(Enemy enemy)
-        {
-            ColorText.Warning($"Enemy: {enemy.Name} | HP: {enemy.Health}/{enemy.MaxHealth}");
-        }
-
-        // Savaş sonucu mesajını gösterir
+        /// <summary>
+        /// Savaş sonucu mesajını gösterir
+        /// </summary>
         private void ShowResult(IResult result)
         {
             switch (result.ResultType)
@@ -262,25 +271,27 @@ namespace AF.UI
             ColorText.Seperator();
         }
 
-        // Zafer ekranını gösterir
+        /// <summary>
+        /// Zafer ekranını gösterir
+        /// </summary>
         private void ShowVictory()
         {
             Console.Clear();
             ColorText.Title("=== Victory ===");
             ColorText.Seperator();
             ColorText.Success("Congratulations! You have defeated the enemy!");
-            ColorText.Seperator();
             ConsoleInput.PressAnyKey();
         }
 
-        // Yenilgi ekranını gösterir
+        /// <summary>
+        /// Yenilgi ekranını gösterir
+        /// </summary>
         private void ShowDefeat()
         {
             Console.Clear();
             ColorText.Title("=== Defeat ===");
             ColorText.Seperator(); 
             ColorText.Error("Better luck next time!");
-            ColorText.Seperator();
             ConsoleInput.PressAnyKey();
         }
     }

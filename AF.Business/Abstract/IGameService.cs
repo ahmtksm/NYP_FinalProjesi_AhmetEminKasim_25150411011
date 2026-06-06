@@ -18,9 +18,8 @@ namespace AF.Business.Abstract
     /// </summary>
     public interface IGameService
     {
-        IDataResult<Player> NewGame(PlayerType playerType, string playerName);
+        IDataResult<Player> NewGame(PlayerType playerType);
         IDataResult<GameState> LoadGame();
-        IDataResult<Enemy> GenerateEnemy(EnemyType enemyType, string enemyName);
         IDataResult<Enemy> GenerateRandomEnemy();
         IResult SaveGame(Player player, Enemy enemy);
         IResult ProcessPlayerAction(ActionType action, Player player, Enemy enemy, ISkill? skill = null, IItem? item = null);

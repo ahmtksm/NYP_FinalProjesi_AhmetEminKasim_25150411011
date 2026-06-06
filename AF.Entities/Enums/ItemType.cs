@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all item categories [EN]
-    /// Tüm eşya kategorilerini tanımlar [TR]
+    /// Tüm eşya kategorilerini tanımlar
     /// </summary>
     public enum ItemType
     {

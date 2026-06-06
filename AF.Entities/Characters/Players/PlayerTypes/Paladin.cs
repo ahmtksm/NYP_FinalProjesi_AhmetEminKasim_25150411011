@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Holy warrior with defensive and healing abilities [EN]
-    /// Kutsal savaşçı, savunma ve iyileştirme yetenekleriyle bilinir [TR]
+    /// Savunma ve iyileştirmede iyi olan bir karakter.
     /// </summary>
     public class Paladin : Player
     {
-        public Paladin(string name) : base("Paladin", 150, new Stats(20, 20, 10, 5, 8, 60), PlayerType.Paladin)
+        public Paladin() : base("Paladin", 150, new Stats(20, 20, 10, 5, 60), PlayerType.Paladin)
         {
             Skills.Add(new Heal());
             Skills.Add(new Shield());

@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Magic user with powerful elemental attacks [EN]
-    /// Güçlü elementel saldırılar yapan büyücü [TR]
+    /// Güçlü elementel saldırılar yapan büyücü
     /// </summary>
     public class Mage : Player
     {
-        public Mage(string name) : base("Mage", 80, new Stats(15, 5, 15, 10, 15, 100), PlayerType.Mage)
+        public Mage() : base("Mage", 80, new Stats(15, 5, 15, 10, 100), PlayerType.Mage)
         {
             Skills.Add(new Fireball());
             Skills.Add(new Freeze());

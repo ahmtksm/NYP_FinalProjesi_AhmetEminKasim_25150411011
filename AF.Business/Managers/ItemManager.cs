@@ -20,7 +20,9 @@ namespace AF.Business.Managers
     /// </summary>
     public class ItemManager : IItemService
     {
-        // Eşyayı kullanır, etkilerini uygular ve envanter'den siler
+        /// <summary>
+        /// Eşyayı kullanır, etkilerini uygular ve envanter'den siler
+        /// </summary>
         public IResult UseItem(Character user, Character target, IItem item)
         {
             // Kullanıcı ve hedef karakterin hayatta olup olmadığını kontrol eder
@@ -30,29 +32,31 @@ namespace AF.Business.Managers
             // Kullanıcının envanterinde eşyayı kontrol eder
             if (!user.Inventory.Contains(item)) return new Result(false, "Item not found.", ResultType.Error);
 
-            ApplyItemEffects(target, item);           
-            user.Inventory.Remove(item);
+            ApplyItemEffects(user, target, item); // Eşya efektlerini uygular          
+            user.Inventory.Remove(item); // Kullanılan eşyayı envanterden siler.
 
             return new Result(true, $"{user.Name} used {item.Name} on {target.Name}.", ResultType.Success);
         }
 
-        // Eşyaların türüne göre hedef karaktere etkisini uygular
-        private void ApplyItemEffects(Character target, IItem item) 
+        /// <summary>
+        /// Eşyaların türüne göre hedef karaktere etkisini uygular
+        /// </summary>
+        private void ApplyItemEffects(Character user, Character target, IItem item)
         {
             switch (item)
             {
                 case Bomb bomb:
-                    target.Health -= bomb.Damage;
+                    target.Health -= bomb.Damage; // Hedefe doğrudan hasar verir
                     break;
-                case DefensePotion defensePotion:
-                    target.Stats.Defense += defensePotion.DefenseBoost;
+                case DefensePotion defensePotion: 
+                    user.Stats.Defense += defensePotion.DefenseBoost; // Hedefin savunmasını geçici olarak artırır
                     break;
                 case GreenHerb greenHerb:
-                    target.Health += greenHerb.HealAmount;
-                    if (target.Health > target.MaxHealth) target.Health = target.MaxHealth;
+                    user.Health += greenHerb.HealAmount; // Hedefin sağlığını iyileştirir
+                    if (target.Health > target.MaxHealth) target.Health = target.MaxHealth; // Sağlığın maksimum sağlığı aşmasını engeller
                     break;
                 case ManaPotion manaPotion:
-                    target.Stats.Mana += manaPotion.ManaRestored;
+                    user.Stats.Mana += manaPotion.ManaRestored; // Hedefin mana puanlarını yeniler
                     break;
             }
             if (target.Health < 0) target.Health = 0; // Sağlığın 0'ın altına düşmemesini sağlar

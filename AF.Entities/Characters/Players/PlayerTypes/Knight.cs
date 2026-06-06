@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Defensive warrior with high armor [EN]
-    /// Yüksek zırhı olan savunma odaklı savaşçı [TR]
+    /// Yüksek zırhı olan savunma odaklı savaşçı
     /// </summary>
     public class Knight : Player
     {
-        public Knight(string name) : base("Knight", 160, new Stats(20, 25, 10, 5, 8, 25), PlayerType.Knight)
+        public Knight() : base("Knight", 160, new Stats(20, 25, 10, 5, 25), PlayerType.Knight)
         {
             Skills.Add(new Shield());
             Skills.Add(new BloodSlash());

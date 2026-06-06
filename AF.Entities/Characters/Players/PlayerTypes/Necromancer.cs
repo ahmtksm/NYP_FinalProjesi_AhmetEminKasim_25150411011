@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Dark magic user focused on life steal and poison [EN]
-    /// Karanlık büyücü, yaşam çalımı ve zehir üzerine odaklanır [TR]
+    /// Karanlık büyücü, yaşam çalımı ve zehir üzerine odaklanır
     /// </summary>
     public class Necromancer : Player
     {
-        public Necromancer(string name) : base("Necromancer", 100, new Stats(18, 8, 10, 10, 12, 90), PlayerType.Necromancer)
+        public Necromancer() : base("Necromancer", 100, new Stats(18, 8, 10, 10, 90), PlayerType.Necromancer)
         {
             Skills.Add(new LifeDrain());
             Skills.Add(new Poison());

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AF.Entities.Enums
 {
+    /// <summary>
+    /// Tüm kullanılabilir eşya adlarını tanımlar
+    /// </summary>
     public enum ItemName
     {
         Bomb = 0,

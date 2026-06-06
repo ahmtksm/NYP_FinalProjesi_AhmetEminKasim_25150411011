@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Enemies.EnemyTypes
 {
     /// <summary>
-    /// Strong and aggressive enemy type [EN]
-    /// Güçlü ve agresif bir düşman türünü temsil eder [TR]
+    /// Güçlü ve agresif bir düşman türünü temsil eder
     /// </summary>
     public class Orc : Enemy
     {
-        public Orc(string name) : base("Orc", 100, new Stats(20, 10, 5, 5, 5, 0), EnemyType.Orc)
+        public Orc() : base("Orc", 100, new Stats(20, 10, 5, 5, 10), EnemyType.Orc)
         {
             Skills.Add(new Rage());
             Skills.Add(new BloodSlash());

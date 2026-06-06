@@ -11,7 +11,9 @@ namespace AF.UI
     /// </summary>
     public static class ConsoleInput
     {
-        // Kullanıcının ok tuşlarıyla gezinerek bir seçenek seçmesini sağlar
+        /// <summary>
+        /// Kullanıcının ok tuşlarıyla gezinerek bir seçenek seçmesini sağlar
+        /// </summary>
         public static int NavigateMenu(Action drawHeader, List<string> options) 
         {
             int index = 0;
@@ -45,19 +47,9 @@ namespace AF.UI
             }
         }
 
-        // Kullanıcıdan boş olmayan bir string girişi alır
-        public static string GetString(string message) 
-        {
-            while (true)
-            {
-                ColorText.Write(message, ConsoleColor.White);
-                string? input = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(input)) return input.Trim();
-                ColorText.Error("Input cannot be empty. Please try again.");
-            }
-        }
-
-        // Kullanıcıdan evet/hayır onayı alır
+        /// <summary>
+        /// Kullanıcıdan evet/hayır onayı alır
+        /// </summary>
         public static bool GetConfirmation(string message) 
         {
             Console.WriteLine();
@@ -77,7 +69,9 @@ namespace AF.UI
             }
         }
 
-        // Devam etmeden önce kullanıcıdan herhangi bir tuşa basmasını bekler
+        /// <summary>
+        /// Devam etmeden önce kullanıcıdan herhangi bir tuşa basmasını bekler
+        /// </summary>
         public static void PressAnyKey() 
         {
             ColorText.Info("Press any key to continue...");

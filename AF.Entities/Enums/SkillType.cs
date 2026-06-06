@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Enums
 {
     /// <summary>
-    /// Defines all skill categories [EN]
-    /// Tüm beceri kategorilerini tanımlar [TR]
+    /// Tüm beceri kategorilerini tanımlar
     /// </summary>
     public enum SkillType
     {

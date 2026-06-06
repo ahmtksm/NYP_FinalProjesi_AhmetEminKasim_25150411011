@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Enemies.EnemyTypes
 {
     /// <summary>
-    /// Small, green, and sneaky creature [EN]
-    /// küçük, yeşil, sinsi yaratık [TR]
+    /// küçük, yeşil, sinsi yaratık
     /// </summary>
     public class Goblin : Enemy
     {
-        public Goblin(string name) : base("Goblin", 60, new Stats(10, 5, 5, 10, 10, 0), EnemyType.Goblin)
+        public Goblin() : base("Goblin", 60, new Stats(10, 5, 5, 10, 10), EnemyType.Goblin)
         {
             Skills.Add(new Backstab());
             Skills.Add(new Poison());

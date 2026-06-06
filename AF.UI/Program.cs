@@ -9,22 +9,29 @@ namespace AF.UI
     internal class Program
     {
         static void Main(string[] args)
-        {
-            ISaveRepository saveRepository = new SaveRepository();
+        {            
             CharacterRepository characterRepository = new CharacterRepository();
             SkillRepository skillRepository = new SkillRepository();
             ItemRepository itemRepository = new ItemRepository();
+            ISaveRepository saveRepository = new SaveRepository();
 
             CombatManager combatManager = new CombatManager();
             EnemyAIManager enemyAIManager = new EnemyAIManager();
             ItemManager itemManager = new ItemManager();
             SaveManager saveManager = new SaveManager(saveRepository, characterRepository, itemRepository, skillRepository);
             SkillManager skillManager = new SkillManager();
-
             IGameService gameManager = new GameManager(combatManager, enemyAIManager, itemManager, saveManager, skillManager, characterRepository);
 
             ConsoleUI ui = new ConsoleUI(gameManager);
-            ui.Run();
+
+            try
+            {
+                ui.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fatal Error : {ex.Message}");
+            }
         }
     }
 }

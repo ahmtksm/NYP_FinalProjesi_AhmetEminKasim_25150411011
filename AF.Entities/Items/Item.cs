@@ -10,23 +10,22 @@ using System.Threading.Tasks;
 namespace AF.Entities.Items
 {
     /// <summary>
-    /// Base class for all items [EN]
-    /// Tüm eşyalar için temel sınıf [TR]
+    /// Tüm eşyalar için temel sınıf
     /// </summary>
     public abstract class Item : IItem
     {
-        public string Name { get; protected set; } // Name of the item [EN] / Eşyanın adı [TR]
-        public string Description { get; protected set; } // Description of the item [EN] / Eşyanın açıklaması [TR]
-        public bool Consumable { get; protected set; } // Whether the item is consumed on use [EN] / Eşyanın kullanılıp kullanılmadığı [TR]
-        public ItemType ItemType { get; protected set; } // Item Category (Damage, Healing, etc.) [EN] / Eşya Kategorisi (Hasar, İyileştirme, vb.) [TR]
-        public ItemName ItemName {  get; protected set; } // Enum name of the item for saving/loading [EN] / Kaydetme/yükleme için eşyanın enum adı [TR]
+        public string Name { get; protected set; } // Eşyanın adı
+        public string Description { get; protected set; } // Eşyanın açıklaması
+        public bool Consumable { get; protected set; } // Eşyanın kullanılıp kullanılmadığı
+        public ItemType ItemType { get; protected set; } // Eşya Kategorisi (Hasar, İyileştirme, vb.)
+        public ItemName ItemName {  get; protected set; } // Eşyanın enum adı
         protected Item(string name, string description, ItemType itemType, ItemName ıtemName)
         {
             Name = name;
             Description = description;
             ItemType = itemType;
             ItemName = ıtemName;
-            Consumable = true;            
+            Consumable = true;        
         }
     }
 }

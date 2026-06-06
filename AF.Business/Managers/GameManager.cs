@@ -22,12 +22,12 @@ namespace AF.Business.Managers
     /// </summary>
     public class GameManager : IGameService
     {
-        private readonly CombatManager _combatManager;
-        private readonly EnemyAIManager _enemyAIManager;
-        private readonly ItemManager _itemManager;
-        private readonly SaveManager _saveManager;
-        private readonly SkillManager _skillManager;
-        private readonly CharacterRepository _characterRepository;
+        private readonly CombatManager _combatManager; // Saldırı ve savunma eylemlerini yönetir
+        private readonly EnemyAIManager _enemyAIManager; // Düşmanların eylem seçimlerini yönetir
+        private readonly ItemManager _itemManager; // Eşyaların kullanımını yönetir
+        private readonly SaveManager _saveManager; // Oyun durumunu kaydetme ve yükleme işlemlerini yönetir
+        private readonly SkillManager _skillManager; // Becerilerin kullanımını ve bekleme sürelerini yönetir
+        private readonly CharacterRepository _characterRepository; // Oyuncu ve düşman karakterlerini oluşturmak için veri erişim katmanı
         private readonly Random _random = new Random(); // Rastgele düşman oluşturmak için
         public GameManager(CombatManager combatManager, EnemyAIManager enemyAIManager, ItemManager itemManager,
                            SaveManager saveManager, SkillManager skillManager, CharacterRepository characterRepository)
@@ -40,64 +40,75 @@ namespace AF.Business.Managers
             _characterRepository = characterRepository;
         }
 
-        // Oyuncu sınıfı ve ismine göre yeni bir oyuncu oluşturur
-        public IDataResult<Player> NewGame(PlayerType playerType, string playerName) 
+        /// <summary>
+        /// Oyuncu sınıfı ve ismine göre yeni bir oyuncu oluşturur
+        /// </summary>
+        public IDataResult<Player> NewGame(PlayerType playerType) 
         {
-            return _characterRepository.CreatePlayer(playerType, playerName);
+            return _characterRepository.CreatePlayer(playerType);
         }
 
-        // Kaydedilmiş bir oyunu yükler
+        /// <summary>
+        /// Kaydedilmiş bir oyunu yükler
+        /// </summary>
         public IDataResult<GameState> LoadGame() 
         {
             return _saveManager.Load();
         }
 
-        // Seçilen düşman türüne göre yeni bir düşman oluşturur
-        public IDataResult<Enemy> GenerateEnemy(EnemyType enemyType, string enemyName) 
-        {
-            return _characterRepository.CreateEnemy(enemyType, enemyName);
-        }
-
-        // Rastgele bir düşman oluşturur
+        /// <summary>
+        /// Rastgele bir düşman oluşturur
+        /// </summary>
         public IDataResult<Enemy> GenerateRandomEnemy() 
         {
-            List<EnemyType> enemyTypes = _characterRepository.GetAllEnemyTypes();
+            List<EnemyType> enemyTypes = Enum.GetValues(typeof(EnemyType)).Cast<EnemyType>().ToList();
             EnemyType randomType = enemyTypes[_random.Next(enemyTypes.Count)];
             string enemyName = randomType.ToString();
-            return _characterRepository.CreateEnemy(randomType, enemyName);
+            return _characterRepository.CreateEnemy(randomType);
         }
 
-        // Mevcut oyun durumunu kaydeder
+        /// <summary>
+        /// Mevcut oyun durumunu kaydeder
+        /// </summary>
         public IResult SaveGame(Player player, Enemy enemy) 
         {
             return _saveManager.Save(player, enemy);
         }
 
-        // Oyuncunun seçtiği eylemi işler ve o eylemin sonucunu döner
+        /// <summary>
+        /// Oyuncunun seçtiği eylemi işler ve o eylemin sonucunu döner
+        /// </summary>
         public IResult ProcessPlayerAction(ActionType action, Player player, Enemy enemy, ISkill? skill, IItem? item)
         {
             switch (action)
             {
-                case ActionType.Attack: return _combatManager.Attack(player, enemy);
-                case ActionType.Defense: return _combatManager.Defend(player);
+                case ActionType.Attack: 
+                    return _combatManager.Attack(player, enemy);
+                case ActionType.Defense: 
+                    return _combatManager.Defend(player);
                 case ActionType.Skill:
                     if (skill == null) return new Result(false, "No Skill Selected.", ResultType.Error);
                     return _skillManager.UseSkill(player, enemy, skill);
                 case ActionType.UseItem:
                     if (item == null) return new Result(false, "No Item Selected.", ResultType.Error);
-                    return _itemManager.UseItem(player, player, item);
+                    if (item.ItemType == ItemType.Damage) return _itemManager.UseItem(player, enemy, item);
+                    else return _itemManager.UseItem(player, player, item);
                 default: return new Result(false, "Invalid action.", ResultType.Error);
             }
         }
 
-        // Düşmanın AI kararına göre eylemini işler ve o eylemin sonucunu döner
+        /// <summary>
+        /// Düşmanın AI kararına göre eylemini işler ve o eylemin sonucunu döner
+        /// </summary>
         public IResult ProcessEnemyAction(Player player, Enemy enemy)
         {
             ActionType action = _enemyAIManager.ChooseAction(enemy);
             switch (action)
             {
-                case ActionType.Attack: return _combatManager.Attack(enemy, player);
-                case ActionType.Defense: return _combatManager.Defend(enemy);
+                case ActionType.Attack: 
+                    return _combatManager.Attack(enemy, player);
+                case ActionType.Defense: 
+                    return _combatManager.Defend(enemy);
                 case ActionType.Skill:
                     ISkill? skill = _enemyAIManager.ChooseSkill(enemy);
                     if (skill == null) return new Result(false, "No Skill Selected.", ResultType.Error);
@@ -105,18 +116,23 @@ namespace AF.Business.Managers
                 case ActionType.UseItem:
                     IItem? item = _enemyAIManager.ChooseItem(enemy);
                     if (item == null) return new Result(false, "No Item Selected.", ResultType.Error);
-                    return _itemManager.UseItem(enemy, enemy, item);
+                    if (item.ItemType == ItemType.Damage) return _itemManager.UseItem(enemy, player, item);
+                    else return _itemManager.UseItem(enemy, enemy, item);
                 default: return new Result(false, "Enemy Skipped Its Turn.", ResultType.Error);
             }
         }
 
-        // Her turun sonunda tüm becerilerin bekleme sürelerini azaltır
+        /// <summary>
+        /// Her turun sonunda tüm becerilerin bekleme sürelerini azaltır
+        /// </summary>
         public IResult EndTurn(Character character) 
         {
             return _skillManager.ReduceCooldowns(character);
         }
 
-        // Oyuncu veya düşmanın yenilip yenilmediğine göre oyunun bitip bitmediğini kontrol eder
+        /// <summary>
+        /// Oyuncu veya düşmanın yenilip yenilmediğine göre oyunun bitip bitmediğini kontrol eder
+        /// </summary>
         public bool IsBattleOver(Player player, Enemy enemy) 
         {
             return !player.IsAlive || !enemy.IsAlive;

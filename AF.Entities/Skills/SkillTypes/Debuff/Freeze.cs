@@ -9,18 +9,15 @@ using System.Threading.Tasks;
 namespace AF.Entities.Skills.SkillTypes.Debuff
 {
     /// <summary>
-    /// Ice skill that freezes the enemy [EN]
-    /// Düşmanı geçici olarak dondurur [TR]
+    /// Düşmanı yavaşlatır ve kaçınma şansını azaltır
     /// </summary>
     public class Freeze : Skill
     {
-        public int FreezeDuration { get; private set; } // Duration in turns that the target will be frozen [EN] / Hedefin kaç tur boyunca donacağını belirten süre [TR]
-        public int SpeedReduction { get; private set; } // Amount of speed reduction applied to the target while frozen [EN] / Hedef donarken uygulanan hız azaltma miktarı [TR]
+        public int DodgeReduction { get; private set; } // Hedef donarken uygulanan kaçınma azaltma miktarı
 
-        public Freeze() : base("Freeze", "Temporarily immobilizes the target.", 5, 25, SkillType.Debuff, SkillName.Freeze)
+        public Freeze() : base("Freeze", "Reduces the target's dodge chance.", 5, 25, SkillType.Debuff, SkillName.Freeze)
         {
-            FreezeDuration = 1;
-            SpeedReduction = 5;
+            DodgeReduction = 10;
         }
     }
 }

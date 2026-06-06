@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 namespace AF.Entities.Skills.SkillTypes.Damage
 {
     /// <summary>
-    /// Assassin attack skill with high critical chance [EN]
-    /// Yüksek kritik şansı olan suikastçi saldırısı [TR]
+    /// Yüksek kritik şansı olan suikastçi saldırısı
     /// </summary>
     public class Backstab : Skill
     {
-        public int Damage { get; private set; } // Base damage of the skill [EN] / Becerinin temel hasarı [TR]
-        public int CritBonus { get; private set; } // Additional damage added on a critical hit [EN] / Kritik vuruşta eklenen ekstra hasar [TR]
+        public int Damage { get; private set; } // Becerinin temel hasarı
+        public int CritBonus { get; private set; } // Kritik vuruşta eklenen ekstra hasar
         public Backstab() : base("Back Stab", "Stabs an enemy from behind, dealing critical damage.", 2, 15, SkillType.Damage, SkillName.Backstab)
         {
             Damage = 25;
