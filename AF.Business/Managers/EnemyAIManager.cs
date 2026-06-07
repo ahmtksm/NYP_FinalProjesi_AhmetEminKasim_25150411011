@@ -16,30 +16,22 @@ namespace AF.Business.Managers
     /// </summary>
     public class EnemyAIManager : IEnemyAIService
     {        
-        private readonly Random random; // AI kararları için rastgele değer
-        public EnemyAIManager()
-        {
-            random = new Random();
-        }
-
         /// <summary>
         /// Düşmanın bu turda hangi eylemi gerçekleştireceğini belirleyen metod
         /// </summary>
         public ActionType ChooseAction(Enemy enemy) 
         {
-            int rndm = random.Next(100);
+            int rndm = Random.Shared.Next(100); // Düşmanın kararları için random değeri
 
-            // Canı düşükse ve iyileştirme eşyası varsa %50 ihtimalle kullanır
-            if (enemy.Health <= enemy.MaxHealth * 0.3 && enemy.Inventory.Any(i => i is GreenHerb) && rndm < 50) return ActionType.UseItem;
+            // Canı düşükse ve iyileştirme eşyası varsa %60 ihtimalle kullanır
+            if (enemy.Health <= enemy.MaxHealth * 0.3 && enemy.Inventory.Any(i => i is GreenHerb) && rndm < 60) return ActionType.UseItem;
 
-            // Manası yeterli ise %30 ihtimalle yetenek kullanır
-            if (enemy.Skills.Any() && enemy.Stats.Mana >= enemy.Skills.Min(s => s.ManaCost) && enemy.Skills.Any(s => s.RemainingCooldown == 0) && rndm < 30) return ActionType.Skill;
+            // Manası yeterli ise %40 ihtimalle yetenek kullanır
+            if (enemy.Skills.Any() && enemy.Stats.Mana >= enemy.Skills.Min(s => s.ManaCost) && enemy.Skills.Any(s => s.RemainingCooldown == 0) && rndm < 40) return ActionType.Skill;
+            
+            if (rndm < 20) return ActionType.Defense; // %20 ihtimalle savunma yapar
 
-            // %20 ihtimalle savunma yapar
-            if (rndm < 20) return ActionType.Defense;
-
-            // Varsayılan olarak saldırır
-            return ActionType.Attack; 
+            return ActionType.Attack; // Varsayılan olarak saldırır
         }
 
         /// <summary>

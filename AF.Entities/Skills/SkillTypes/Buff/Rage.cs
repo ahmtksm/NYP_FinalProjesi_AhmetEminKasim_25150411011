@@ -14,9 +14,9 @@ namespace AF.Entities.Skills.SkillTypes.Buff
     public class Rage : Skill
     {
         public int DamageBoost { get; private set; } // Hasar artış miktarı
-        public Rage() : base("Rage", "Increases damage output for a short duration.", 4, 10, SkillType.Buff, SkillName.Rage)
+        public Rage() : base("Rage", "Increases damage output", 4, 10, SkillType.Buff, SkillName.Rage)
         {
-            DamageBoost = 20;
+            DamageBoost = 15;
         }
     }
 }

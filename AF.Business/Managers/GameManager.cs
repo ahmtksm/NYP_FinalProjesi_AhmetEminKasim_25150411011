@@ -22,15 +22,14 @@ namespace AF.Business.Managers
     /// </summary>
     public class GameManager : IGameService
     {
-        private readonly CombatManager _combatManager; // Saldırı ve savunma eylemlerini yönetir
-        private readonly EnemyAIManager _enemyAIManager; // Düşmanların eylem seçimlerini yönetir
-        private readonly ItemManager _itemManager; // Eşyaların kullanımını yönetir
-        private readonly SaveManager _saveManager; // Oyun durumunu kaydetme ve yükleme işlemlerini yönetir
-        private readonly SkillManager _skillManager; // Becerilerin kullanımını ve bekleme sürelerini yönetir
+        private readonly ICombatService _combatManager; // Saldırı ve savunma eylemlerini yönetir
+        private readonly IEnemyAIService _enemyAIManager; // Düşmanların eylem seçimlerini yönetir
+        private readonly IItemService _itemManager; // Eşyaların kullanımını yönetir
+        private readonly ISaveService _saveManager; // Oyun durumunu kaydetme ve yükleme işlemlerini yönetir
+        private readonly ISkillService _skillManager; // Becerilerin kullanımını ve bekleme sürelerini yönetir
         private readonly CharacterRepository _characterRepository; // Oyuncu ve düşman karakterlerini oluşturmak için veri erişim katmanı
-        private readonly Random _random = new Random(); // Rastgele düşman oluşturmak için
-        public GameManager(CombatManager combatManager, EnemyAIManager enemyAIManager, ItemManager itemManager,
-                           SaveManager saveManager, SkillManager skillManager, CharacterRepository characterRepository)
+        public GameManager(ICombatService combatManager, IEnemyAIService enemyAIManager, IItemService itemManager,
+                           ISaveService saveManager, ISkillService skillManager, CharacterRepository characterRepository)
         {
             _combatManager = combatManager;
             _enemyAIManager = enemyAIManager;
@@ -41,9 +40,9 @@ namespace AF.Business.Managers
         }
 
         /// <summary>
-        /// Oyuncu sınıfı ve ismine göre yeni bir oyuncu oluşturur
+        /// Oyuncu sınıfına göre yeni bir oyuncu oluşturur
         /// </summary>
-        public IDataResult<Player> NewGame(PlayerType playerType) 
+        public IDataResult<Player> NewGame(PlayerType playerType)
         {
             return _characterRepository.CreatePlayer(playerType);
         }
@@ -51,7 +50,7 @@ namespace AF.Business.Managers
         /// <summary>
         /// Kaydedilmiş bir oyunu yükler
         /// </summary>
-        public IDataResult<GameState> LoadGame() 
+        public IDataResult<GameState> LoadGame()
         {
             return _saveManager.Load();
         }
@@ -59,18 +58,18 @@ namespace AF.Business.Managers
         /// <summary>
         /// Rastgele bir düşman oluşturur
         /// </summary>
-        public IDataResult<Enemy> GenerateRandomEnemy() 
+        public IDataResult<Enemy> GenerateRandomEnemy()
         {
-            List<EnemyType> enemyTypes = Enum.GetValues(typeof(EnemyType)).Cast<EnemyType>().ToList();
-            EnemyType randomType = enemyTypes[_random.Next(enemyTypes.Count)];
-            string enemyName = randomType.ToString();
+            List<EnemyType> enemyTypes = Enum.GetValues(typeof(EnemyType)).Cast<EnemyType>().ToList(); // Düşmanların listesi
+            EnemyType randomType = enemyTypes[Random.Shared.Next(enemyTypes.Count)]; // Listeden rastgele bir düşman seçer
+
             return _characterRepository.CreateEnemy(randomType);
         }
 
         /// <summary>
         /// Mevcut oyun durumunu kaydeder
         /// </summary>
-        public IResult SaveGame(Player player, Enemy enemy) 
+        public IResult SaveGame(Player player, Enemy enemy)
         {
             return _saveManager.Save(player, enemy);
         }
@@ -82,9 +81,9 @@ namespace AF.Business.Managers
         {
             switch (action)
             {
-                case ActionType.Attack: 
+                case ActionType.Attack:
                     return _combatManager.Attack(player, enemy);
-                case ActionType.Defense: 
+                case ActionType.Defense:
                     return _combatManager.Defend(player);
                 case ActionType.Skill:
                     if (skill == null) return new Result(false, "No Skill Selected.", ResultType.Error);
@@ -93,7 +92,8 @@ namespace AF.Business.Managers
                     if (item == null) return new Result(false, "No Item Selected.", ResultType.Error);
                     if (item.ItemType == ItemType.Damage) return _itemManager.UseItem(player, enemy, item);
                     else return _itemManager.UseItem(player, player, item);
-                default: return new Result(false, "Invalid action.", ResultType.Error);
+                default:
+                    return new Result(false, "Invalid action.", ResultType.Error);
             }
         }
 
@@ -105,9 +105,9 @@ namespace AF.Business.Managers
             ActionType action = _enemyAIManager.ChooseAction(enemy);
             switch (action)
             {
-                case ActionType.Attack: 
+                case ActionType.Attack:
                     return _combatManager.Attack(enemy, player);
-                case ActionType.Defense: 
+                case ActionType.Defense:
                     return _combatManager.Defend(enemy);
                 case ActionType.Skill:
                     ISkill? skill = _enemyAIManager.ChooseSkill(enemy);
@@ -118,14 +118,15 @@ namespace AF.Business.Managers
                     if (item == null) return new Result(false, "No Item Selected.", ResultType.Error);
                     if (item.ItemType == ItemType.Damage) return _itemManager.UseItem(enemy, player, item);
                     else return _itemManager.UseItem(enemy, enemy, item);
-                default: return new Result(false, "Enemy Skipped Its Turn.", ResultType.Error);
+                default: 
+                    return new Result(false, "Enemy Skipped Its Turn.", ResultType.Error);
             }
         }
 
         /// <summary>
         /// Her turun sonunda tüm becerilerin bekleme sürelerini azaltır
         /// </summary>
-        public IResult EndTurn(Character character) 
+        public IResult EndTurn(Character character)
         {
             return _skillManager.ReduceCooldowns(character);
         }
@@ -133,7 +134,7 @@ namespace AF.Business.Managers
         /// <summary>
         /// Oyuncu veya düşmanın yenilip yenilmediğine göre oyunun bitip bitmediğini kontrol eder
         /// </summary>
-        public bool IsBattleOver(Player player, Enemy enemy) 
+        public bool IsBattleOver(Player player, Enemy enemy)
         {
             return !player.IsAlive || !enemy.IsAlive;
         }

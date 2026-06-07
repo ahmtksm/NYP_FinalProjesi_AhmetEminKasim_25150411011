@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace AF.Entities.Characters.Players.PlayerTypes
 {
     /// <summary>
-    /// Yüksek kritik şansı olan hızlı karakter
+    /// Yüksek kritik şansı olan karakter
     /// </summary>
     public class Assassin : Player
     {

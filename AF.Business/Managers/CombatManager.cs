@@ -14,16 +14,10 @@ namespace AF.Business.Managers
     /// </summary>
     public class CombatManager : ICombatService
     {
-        private readonly Random random; // Kaçınma ve kritik vuruş hesaplamaları için rastgele değer
-        public CombatManager()
-        {
-            random = new Random();
-        }
-
         // Temel saldırı metodu: Hasar hesaplama, kaçınma ve kritik vuruş kontrolü
         public IResult Attack(Character attacker, Character defender) 
         {
-            // Önce her iki karakterin de hayatta olup olmadığı kontrol edilir
+            // Her iki karakterin de hayatta olup olmadığı kontrol edilir
             if (!attacker.IsAlive) return new Result(false, $"{attacker.Name} is already dead.", ResultType.Error);
             if (!defender.IsAlive) return new Result(false, $"{defender.Name} is already dead.", ResultType.Error);
 
@@ -47,14 +41,14 @@ namespace AF.Business.Managers
             defender.Health -= damage; // Savunmacının sağlığı hasar kadar azalır
             if (defender.Health < 0) defender.Health = 0; // Sağlık 0'ın altına düşemez
 
-            if (IsDead(defender)) return new Result(true, $"{attacker.Name} has defeated {defender.Name}.", ResultType.Success);
-            if (critical) return new Result(true, $"{attacker.Name} landed a critical hit and dealt {damage} damage to {defender.Name}!", ResultType.Critical);
-            else return new Result(true, $"{attacker.Name} dealt {damage} damage to {defender.Name}.", ResultType.Damage);
+            if (IsDead(defender)) return new Result(true, $"{attacker.Name} has defeated {defender.Name}.", ResultType.Success); // Ölen varsa çıkan mesaj
+            if (critical) return new Result(true, $"{attacker.Name} landed a critical hit and dealt {damage} damage to {defender.Name}!", ResultType.Critical); // Kritik vuruş mesajı
+            else return new Result(true, $"{attacker.Name} dealt {damage} damage to {defender.Name}.", ResultType.Damage); // Hasar mesajı
         }       
         public IResult Defend(Character character) // Basit savunma metodu: Bir sonraki tur için savunmayı artırır
         {
-            character.IsDefending = true;
-            return new Result(true, $"{character.Name} is defending.", ResultType.Success);
+            character.IsDefending = true; // Karakter savunma moduna geçer
+            return new Result(true, $"{character.Name} is defending.", ResultType.Success); // Karakterin savunmada olduğunu bildiren mesaj
         }
 
         // Hasar hesaplama metodu: Saldırganın hasarından savunmacının savunmasını çıkarır, minimum hasar 1 olarak belirlenir
@@ -67,13 +61,13 @@ namespace AF.Business.Managers
         // Kritik vuruşu kontrol eden metod: Saldırganın kritik vuruş şansına göre rastgele bir değer üretilir ve kritik vuruş olup olmadığı belirlenir
         public bool CheckCriticalHit(Character attacker) 
         {
-            return random.Next(100) < attacker.Stats.CritChance; // Örneğin, CritChance %20 ise, random.Next(100) 0-99 arasında bir değer üretir ve 20'den küçükse kritik vuruş gerçekleşir
+            return Random.Shared.Next(100) < attacker.Stats.CritChance; // Örneğin, CritChance %20 ise, random.Next(100) 0-99 arasında bir değer üretir ve 20'den küçükse kritik vuruş gerçekleşir
         }
 
         // Saldırıyı kaçırıp kaçırmadığını kontrol eden metod
         public bool CheckDodge(Character defender) 
         {
-            return random.Next(100) < defender.Stats.DodgeChance; // Örneğin, DodgeChance %15 ise, random.Next(100) 0-99 arasında bir değer üretir ve 15'ten küçükse saldırıyı kaçırır
+            return Random.Shared.Next(100) < defender.Stats.DodgeChance; // Örneğin, DodgeChance %15 ise, random.Next(100) 0-99 arasında bir değer üretir ve 15'ten küçükse saldırıyı kaçırır
         }
 
         // Karakterin ölü olup olmadığını kontrol eden metod

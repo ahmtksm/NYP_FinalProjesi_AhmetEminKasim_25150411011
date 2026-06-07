@@ -21,17 +21,12 @@ namespace AF.Business.Managers
     /// </summary>
     public class SkillManager : ISkillService
     {
-        private readonly Random random; // Bazı beceri etkileri için rastgele sayı üreticisi
-        public SkillManager()
-        {
-            random = new Random();
-        }
         /// <summary>
         /// Skill kullanma işlemini yöneten yöntem
         /// </summary>
         public IResult UseSkill(Character user, Character target, ISkill skill)
         {
-            // Beceriyi kullanma işlemine devam etmeden önce her iki karakterin de canlı olup olmadığını kontrol eder
+            // Kullanıcı ve hedef karakterin hayatta olup olmadığını kontrol eder
             if (!user.IsAlive) return new Result(false, $"{user.Name} is dead and cannot use skills.", ResultType.Error);
             if (!target.IsAlive) return new Result(false, $"{target.Name} is already dead.", ResultType.Error);
 
@@ -85,7 +80,7 @@ namespace AF.Business.Managers
         /// </summary>
         private void ApplySkillEffect(Character user, Character target, ISkill skill)
         {
-            int rndm = random.Next(100);
+            int random = Random.Shared.Next(100);
             switch (skill)
             {
                 case Rage rage:
@@ -96,7 +91,7 @@ namespace AF.Business.Managers
                     break;
                 case Backstab backstab:
                     target.Health -= backstab.Damage; // Hedefe doğrudan hasar verir
-                    user.Stats.CritChance += backstab.CritBonus; // Kullanıcının kritik vuruş şansını artırır
+                    user.Stats.CritChance += backstab.CritBoost; // Kullanıcının kritik vuruş şansını artırır
                     break;
                 case BloodSlash bloodSlash:
                     target.Health -= bloodSlash.Damage; // Hedefe doğrudan hasar verir
@@ -104,7 +99,7 @@ namespace AF.Business.Managers
                     break;
                 case Fireball fireball:
                     target.Health -= fireball.Damage; // Hedefe doğrudan hasar verir
-                    if (rndm < fireball.BurnChance) target.Health -= fireball.Damage / 4; // Rastgele bir yanma hasarı verir
+                    if (random < fireball.BurnChance) target.Health -= fireball.Damage / 4; // Rastgele bir yanma hasarı verir
                     break;
                 case Burn burn:
                     target.Health -= burn.Damage; // Hedefe doğrudan hasar verir
@@ -114,7 +109,7 @@ namespace AF.Business.Managers
                     target.Stats.DodgeChance -= freeze.DodgeReduction; // Hedefin kaçınma şansını azaltır
                     break;
                 case Poison poison:
-                    target.Health -= rndm / 10; // Rastgele bir zehir hasarı verir
+                    target.Health -= random / 5; // Rastgele bir zehir hasarı verir
                     break;
                 case Heal heal:
                     target.Health += heal.HealAmount; // Hedefin sağlığını iyileştirir

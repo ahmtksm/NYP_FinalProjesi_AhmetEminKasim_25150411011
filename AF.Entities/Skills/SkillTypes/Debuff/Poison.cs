@@ -13,7 +13,7 @@ namespace AF.Entities.Skills.SkillTypes.Debuff
     /// </summary>
     public class Poison : Skill
     {
-        public Poison() : base("Poison", "Causes the target to take damage over time.", 4, 15, SkillType.Debuff, SkillName.Poison)
+        public Poison() : base("Poison", "Causes random damage to the target", 4, 15, SkillType.Debuff, SkillName.Poison)
         {
 
         }

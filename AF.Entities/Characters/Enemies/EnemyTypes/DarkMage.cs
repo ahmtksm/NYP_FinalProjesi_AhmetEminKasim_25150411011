@@ -15,7 +15,7 @@ namespace AF.Entities.Characters.Enemies.EnemyTypes
     /// </summary>
     public class DarkMage : Enemy
     {
-        public DarkMage() : base("DarkMage", 80, new Stats(25, 5, 10, 10, 50), EnemyType.DarkMage)
+        public DarkMage() : base("DarkMage", 80, new Stats(20, 5, 10, 10, 50), EnemyType.DarkMage)
         {
             Skills.Add(new Fireball());
             Skills.Add(new Burn());

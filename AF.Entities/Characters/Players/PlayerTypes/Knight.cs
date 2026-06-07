@@ -16,7 +16,7 @@ namespace AF.Entities.Characters.Players.PlayerTypes
     /// </summary>
     public class Knight : Player
     {
-        public Knight() : base("Knight", 160, new Stats(20, 25, 10, 5, 25), PlayerType.Knight)
+        public Knight() : base("Knight", 160, new Stats(25, 25, 10, 5, 35), PlayerType.Knight)
         {
             Skills.Add(new Shield());
             Skills.Add(new BloodSlash());

@@ -15,7 +15,7 @@ namespace AF.Entities.Skills.SkillTypes.Damage
     {
         public int Damage { get; private set; } // Ateş topunun temel hasarı
         public int BurnChance { get; private set; } // Yanma efekti uygulama şansı
-        public Fireball() : base("Fireball", "Launches a fireball at the enemy, dealing damage and potentially causing a burn.", 3, 25, SkillType.Damage, SkillName.Fireball)
+        public Fireball() : base("Fireball", "Launches a fireball, dealing damage and possibly burns the enemy", 3, 25, SkillType.Damage, SkillName.Fireball)
         {
             Damage = 35;
             BurnChance = 50;

@@ -30,7 +30,10 @@ namespace AF.UI
         /// </summary>
         public void Run()
         {
-            while (true) { ShowMainmenu(); }
+            while (true)
+            {
+                ShowMainmenu();
+            }
         }
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace AF.UI
         {
             Console.CursorVisible = false;
             List<string> options = new List<string> { "New Game", "Load Game", "Exit" };
-            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Title("=== Arena Fighter ==="); ColorText.Seperator(); }, options);
+            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Title("\tArena Fighter", 29); ColorText.Seperator(); }, options);
             switch (choice)
             {
                 case 0:
@@ -63,8 +66,8 @@ namespace AF.UI
             Console.Clear();
 
             List<string> options = Enum.GetValues<PlayerType>().Select(t => t.ToString()).ToList(); // Oyuncu sınıfı seçeneklerini oluşturur
-            options.Add("Back");
-            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Title("=== Select your character ==="); ColorText.Seperator(); }, options); // Oyuncu sınıfı seçimini alır
+            options.Add("[Back]");
+            int choice = ConsoleInput.NavigateMenu(() => { ColorText.Title("    Select your character", 29); ColorText.Seperator(); }, options); // Oyuncu sınıfı seçimini alır
             if (choice == options.Count - 1) ShowMainmenu();
             PlayerType selectedType = (PlayerType)(choice);
 
@@ -89,7 +92,7 @@ namespace AF.UI
         }
 
         /// <summary>
-        /// Kaydedilmiş bir oyunu yükler ve yüklenen oyuncu ile yeni bir düşmanla savaşı başlatır
+        /// Kaydedilmiş bir oyunu yükler ve yüklenen oyuncu ve düşman ile savaşı başlatır
         /// </summary>
         private void LoadGame()
         {
@@ -150,16 +153,14 @@ namespace AF.UI
                     default:
                         continue;
                 }
-
                 ShowResult(result);
                 if (_gameManager.IsBattleOver(player, enemy)) break;
-
                 result = _gameManager.ProcessEnemyAction(player, enemy);
                 ShowResult(result);
-            }
 
-            if (player.IsAlive) ShowVictory();
-            else ShowDefeat();
+                _gameManager.EndTurn(player);
+            }
+            ShowWinner(player);
         }
 
         /// <summary>
@@ -206,10 +207,11 @@ namespace AF.UI
                 return null;
             }
 
-            List<string> options = player.Skills.Select(s => $"{s.Name} | {s.Description} | Mana: {s.ManaCost} | Cooldown: {s.RemainingCooldown}").ToList();
-            options.Add("Back");
+            List<string> options = player.Skills.Select(s => $"{s.Name} | {s.Description} | Mana: {s.ManaCost} | Cooldown: {s.RemainingCooldown}").ToList(); // oyuncunun Becerilerinin listesi
+            options.Add("[Back]"); // Savaş menüsüne geri dönme seçeneği
             int choice = ConsoleInput.NavigateMenu(() => ShowPlayerAndEnemyInfo(player, enemy), options);
-            if (choice == options.Count - 1) return null;
+            ColorText.Seperator();
+            if (choice == options.Count - 1) return null; // Back seçilirse boş döner
             return player.Skills[choice];
         }
 
@@ -225,10 +227,11 @@ namespace AF.UI
                 return null;
             }
 
-            List<string> options = player.Inventory.Select(i => $"{i.Name} | {i.Description}").ToList();
-            options.Add("Back");
+            List<string> options = player.Inventory.Select(i => $"{i.Name} | {i.Description}").ToList(); // Oyuncunun eşyalarının listesi
+            options.Add("[Back]"); // Savaş menüsüne geri dönme seçeneği
             int choice = ConsoleInput.NavigateMenu(() => ShowPlayerAndEnemyInfo(player, enemy), options);
-            if (choice == options.Count - 1) return null;
+            ColorText.Seperator();
+            if (choice == options.Count - 1) return null; // Back seçilirse boş döner
             return player.Inventory[choice];
         }
 
@@ -274,24 +277,13 @@ namespace AF.UI
         /// <summary>
         /// Zafer ekranını gösterir
         /// </summary>
-        private void ShowVictory()
+        private void ShowWinner(Player player)
         {
             Console.Clear();
-            ColorText.Title("=== Victory ===");
+            ColorText.Title(player.IsAlive ? "   Victory" : "   Defeat", 13);
             ColorText.Seperator();
-            ColorText.Success("Congratulations! You have defeated the enemy!");
-            ConsoleInput.PressAnyKey();
-        }
-
-        /// <summary>
-        /// Yenilgi ekranını gösterir
-        /// </summary>
-        private void ShowDefeat()
-        {
-            Console.Clear();
-            ColorText.Title("=== Defeat ===");
-            ColorText.Seperator(); 
-            ColorText.Error("Better luck next time!");
+            if (player.IsAlive) ColorText.Success("Congratulations! You have defeated the enemy!");
+            else ColorText.Error("Better luck next time!");
             ConsoleInput.PressAnyKey();
         }
     }

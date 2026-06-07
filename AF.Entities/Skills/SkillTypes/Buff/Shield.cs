@@ -14,9 +14,9 @@ namespace AF.Entities.Skills.SkillTypes.Buff
     public class Shield : Skill
     {
         public int DefenseBoost { get; private set; } // Savunma artış miktarı
-        public Shield() : base("Shield", "Provides temporary damage reduction.", 5, 10, SkillType.Buff, SkillName.Shield)
+        public Shield() : base("Shield", "Provides damage reduction.", 5, 10, SkillType.Buff, SkillName.Shield)
         {
-            DefenseBoost = 15;
+            DefenseBoost = 10;
         }
     }
 }

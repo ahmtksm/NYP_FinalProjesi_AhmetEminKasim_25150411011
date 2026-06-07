@@ -15,7 +15,7 @@ namespace AF.Entities.Skills.SkillTypes.Debuff
     {
         public int DodgeReduction { get; private set; } // Hedef donarken uygulanan kaçınma azaltma miktarı
 
-        public Freeze() : base("Freeze", "Reduces the target's dodge chance.", 5, 25, SkillType.Debuff, SkillName.Freeze)
+        public Freeze() : base("Freeze", "Reduces the target's dodge chance", 5, 25, SkillType.Debuff, SkillName.Freeze)
         {
             DodgeReduction = 10;
         }

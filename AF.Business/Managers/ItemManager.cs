@@ -1,5 +1,4 @@
 ﻿using AF.Business.Abstract;
-using AF.Core;
 using AF.Core.Results;
 using AF.Entities.Characters;
 using AF.Entities.Abstract;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AF.Entities.Items;
 
 namespace AF.Business.Managers
 {
@@ -35,7 +35,7 @@ namespace AF.Business.Managers
             ApplyItemEffects(user, target, item); // Eşya efektlerini uygular          
             user.Inventory.Remove(item); // Kullanılan eşyayı envanterden siler.
 
-            return new Result(true, $"{user.Name} used {item.Name} on {target.Name}.", ResultType.Success);
+            return new Result(true, $"{user.Name} used {item.Name} on {target.Name}.", ResultType.Success); // Başarılı bir şekilde eşya kullanıldığını belirten bir sonuç döner
         }
 
         /// <summary>

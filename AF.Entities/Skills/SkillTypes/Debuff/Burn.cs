@@ -15,7 +15,7 @@ namespace AF.Entities.Skills.SkillTypes.Debuff
     {
         public int Damage { get; private set; } // Verilen hasar
         public int CritChanceReduction { get; private set; } // Hedefin kritik hasar atma şansını azaltma miktarı
-        public Burn() : base("Burn", "Causes the target to take damage and reduce critical hit chance.", 3, 20, SkillType.Debuff, SkillName.Burn)
+        public Burn() : base("Burn", "Causes the target to take damage and reduce critical hit chance", 3, 20, SkillType.Debuff, SkillName.Burn)
         {
             Damage = 6;
             CritChanceReduction = 7;

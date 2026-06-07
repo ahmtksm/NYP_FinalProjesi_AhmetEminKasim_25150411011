@@ -15,11 +15,11 @@ namespace AF.UI
             ItemRepository itemRepository = new ItemRepository();
             ISaveRepository saveRepository = new SaveRepository();
 
-            CombatManager combatManager = new CombatManager();
-            EnemyAIManager enemyAIManager = new EnemyAIManager();
-            ItemManager itemManager = new ItemManager();
-            SaveManager saveManager = new SaveManager(saveRepository, characterRepository, itemRepository, skillRepository);
-            SkillManager skillManager = new SkillManager();
+            ICombatService combatManager = new CombatManager();
+            IEnemyAIService enemyAIManager = new EnemyAIManager();
+            IItemService itemManager = new ItemManager();
+            ISaveService saveManager = new SaveManager(saveRepository, characterRepository, itemRepository, skillRepository);
+            ISkillService skillManager = new SkillManager();
             IGameService gameManager = new GameManager(combatManager, enemyAIManager, itemManager, saveManager, skillManager, characterRepository);
 
             ConsoleUI ui = new ConsoleUI(gameManager);

@@ -18,7 +18,7 @@ namespace AF.Entities.Characters.Enemies.EnemyTypes
     /// </summary>
     public class Demon : Enemy
     {
-        public Demon() : base("Demon", 150, new Stats(35, 20, 15, 5, 30), EnemyType.Demon)
+        public Demon() : base("Demon", 120, new Stats(25, 15, 15, 5, 30), EnemyType.Demon)
         {
             Skills.Add(new Fireball());
             Skills.Add(new Burn());

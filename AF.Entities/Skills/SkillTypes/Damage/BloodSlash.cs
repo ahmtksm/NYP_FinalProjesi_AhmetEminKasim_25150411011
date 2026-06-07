@@ -15,7 +15,7 @@ namespace AF.Entities.Skills.SkillTypes.Damage
     {
         public int Damage { get; private set; } // Hedefe verilen hasar
         public int SelfDamage { get; private set; } // Kullanıcı tarafından alınan ekstra hasar
-        public BloodSlash() : base("Blood Slash", "Slashes the enemy, dealing damage and taking some damage.", 4, 20, SkillType.Damage, SkillName.BloodSlash)
+        public BloodSlash() : base("Blood Slash", "Slashes the enemy, dealing damage and taking some damage", 4, 20, SkillType.Damage, SkillName.BloodSlash)
         {
             Damage = 45;
             SelfDamage = 10;

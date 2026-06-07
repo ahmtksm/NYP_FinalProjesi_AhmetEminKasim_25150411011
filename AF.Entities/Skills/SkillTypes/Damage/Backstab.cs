@@ -14,11 +14,11 @@ namespace AF.Entities.Skills.SkillTypes.Damage
     public class Backstab : Skill
     {
         public int Damage { get; private set; } // Becerinin temel hasarı
-        public int CritBonus { get; private set; } // Kritik vuruşta eklenen ekstra hasar
-        public Backstab() : base("Back Stab", "Stabs an enemy from behind, dealing critical damage.", 2, 15, SkillType.Damage, SkillName.Backstab)
+        public int CritBoost { get; private set; } // Kritik vuruşta eklenen ekstra hasar
+        public Backstab() : base("Back Stab", "Stabs an enemy from behind, increases critical chance", 2, 15, SkillType.Damage, SkillName.Backstab)
         {
             Damage = 25;
-            CritBonus = 40;
+            CritBoost = 25;
         }
     }
 }

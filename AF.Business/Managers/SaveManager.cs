@@ -65,13 +65,9 @@ namespace AF.Business.Managers
             // Kaydedilmiş oyun verisi bulunamazsa uygun bir hata mesajı döndürür
             if (saveData == null) return new DataResult<GameState>(false, "No saved game found.", null);
 
-            var playerData = _characterRepository.CreatePlayer(saveData.PlayerType);
-
-            // Kaydedilmiş oyuncu türü geçersizse uygun bir hata mesajı döndürür
-            if (!playerData.Success) return new DataResult<GameState>(false, playerData.Message, null); 
-
-            // Kaydedilmiş oyuncu verisi bulunamazsa uygun bir hata mesajı döndürür
-            if (playerData.Data == null) return new DataResult<GameState>(false, "Player Data is null.", null); 
+            var playerData = _characterRepository.CreatePlayer(saveData.PlayerType);            
+            if (!playerData.Success) return new DataResult<GameState>(false, playerData.Message, null); // Kaydedilmiş oyuncu türü geçersizse uygun bir hata mesajı döndürür            
+            if (playerData.Data == null) return new DataResult<GameState>(false, "Player Data is null.", null); // Kaydedilmiş oyuncu verisi bulunamazsa uygun bir hata mesajı döndürür
 
             Player player = playerData.Data;
             player.Health = saveData.Health;
@@ -91,8 +87,8 @@ namespace AF.Business.Managers
             }
 
             var enemyData = _characterRepository.CreateEnemy(saveData.EnemyType);
-            if (!enemyData.Success) return new DataResult<GameState>(false, enemyData.Message, null);
-            if (enemyData.Data == null) return new DataResult<GameState>(false, "Enemy Data is null.", null);
+            if (!enemyData.Success) return new DataResult<GameState>(false, enemyData.Message, null); // Kaydedilmiş düşman türü geçersizse uygun bir hata mesajı döndürür
+            if (enemyData.Data == null) return new DataResult<GameState>(false, "Enemy Data is null.", null);// Kaydedilmiş düşman verisi bulunamazsa uygun bir hata mesajı döndürür
 
             Enemy enemy = enemyData.Data;
             enemy.Health = saveData.EnemyHealth;
